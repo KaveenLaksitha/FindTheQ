@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FindTheQ</string>
+    <string name="welcome_text">Welcome Back!</string>
+    <string name="login_str">Sign In</string>
+</resources>
