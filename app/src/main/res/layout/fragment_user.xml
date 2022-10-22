@@ -15,7 +15,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="104dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="Customer Name" />
@@ -63,6 +63,20 @@
         android:hint="Vehicle Type" />
 
     <EditText
+        android:id="@+id/cusvehicleid"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cuspno"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="74dp"
+        android:layout_marginEnd="21dp"
+        android:ems="10"
+        android:hint="Vehicle ID" />
+
+    <EditText
         android:id="@+id/cusfueltype"
         android:layout_width="333dp"
         android:layout_height="wrap_content"
@@ -70,10 +84,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="21dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="22dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="25dp"
         android:ems="10"
         android:hint="Fuel Type"
         android:inputType="textPersonName" />
@@ -86,9 +100,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
         android:layout_marginBottom="281dp"
         android:ems="10"
         android:hint="Password"
@@ -102,21 +116,9 @@
         android:layout_alignEnd="@+id/cuspassword"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="110dp"
-        android:layout_marginEnd="105dp"
-        android:layout_marginBottom="73dp"
+        android:layout_marginStart="113dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="106dp"
         android:text="Register" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="253dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="-8dp"
-        android:layout_marginEnd="1dp"
-        android:src="@drawable/cute_happy_yellow_automobile_car_choosing_gas_electric_flat_cartoon_character_illustration_icon_isolated_white_automobile_car_character_92289_539" />
 
 </RelativeLayout>

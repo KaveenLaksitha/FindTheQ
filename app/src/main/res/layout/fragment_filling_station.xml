@@ -13,11 +13,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="244dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="113dp"
+        android:layout_marginEnd="17dp"
         android:ems="10"
         android:hint="Station ID" />
+
 
     <EditText
         android:id="@+id/ownername"
@@ -28,7 +29,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="21dp"
         android:ems="10"
         android:hint="Owner Name" />
@@ -41,9 +42,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="18dp"
         android:ems="10"
         android:hint="Station Name" />
 
@@ -54,9 +55,9 @@
         android:layout_below="@+id/stationname"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="Address" />
@@ -70,7 +71,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="38dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="Phone Number" />
@@ -83,14 +84,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="22dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="281dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword" />
-
 
     <Button
         android:id="@+id/button2"
@@ -100,21 +100,9 @@
         android:layout_alignEnd="@+id/cuspassword"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="113dp"
-        android:layout_marginEnd="119dp"
-        android:layout_marginBottom="71dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="80dp"
         android:text="Register" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="253dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="-8dp"
-        android:layout_marginEnd="1dp"
-        android:src="@drawable/cute_happy_yellow_automobile_car_choosing_gas_electric_flat_cartoon_character_illustration_icon_isolated_white_automobile_car_character_92289_539" />
 
 </RelativeLayout>
