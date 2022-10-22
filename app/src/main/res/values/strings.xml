@@ -4,4 +4,15 @@
     <string name="login_str">Sign In</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txtPetrol">Petrol</string>
+    <string name="txtDiesel">Diesel</string>
+    <string name="txtStockArrivalTime">Last stock arrival time :</string>
+    <string name="txtStockFinishTime">Stock finish time :</string>
+    <string name="txtUpdateStock">Update Stock</string>
+    <string name="txtUpdateTime">Update arrival/ finish time</string>
+    <string name="txtSetService">Set as out or service</string>
+    <string name="txtUpdate">Update</string>
+    <string name="txtCancel">Cancel</string>
+    <string name="txtPetrol92">92</string>
+    <string name="txtPetrol95">95</string>
 </resources>
