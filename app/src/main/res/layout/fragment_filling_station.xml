@@ -5,11 +5,116 @@
     android:layout_height="match_parent"
     tools:context=".fragments.FillingStationFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/stationid"
+        android:layout_width="333dp"
         android:layout_height="wrap_content"
-        android:text="Filling Station registration"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="244dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="Station ID" />
+
+    <EditText
+        android:id="@+id/ownername"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stationid"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="21dp"
+        android:ems="10"
+        android:hint="Owner Name" />
+
+    <EditText
+        android:id="@+id/stationname"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ownername"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:textSize="24dp"/>
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="Station Name" />
+
+    <EditText
+        android:id="@+id/stationaddress"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stationname"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="Address" />
+
+    <EditText
+        android:id="@+id/ownerphonenumber"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stationaddress"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="Phone Number" />
+
+    <EditText
+        android:id="@+id/cuspassword"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ownerphonenumber"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="281dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/cuspassword"
+        android:layout_alignEnd="@+id/cuspassword"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="113dp"
+        android:layout_marginEnd="119dp"
+        android:layout_marginBottom="71dp"
+        android:text="Register" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="253dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="-8dp"
+        android:layout_marginEnd="1dp"
+        android:src="@drawable/cute_happy_yellow_automobile_car_choosing_gas_electric_flat_cartoon_character_illustration_icon_isolated_white_automobile_car_character_92289_539" />
 
 </RelativeLayout>
