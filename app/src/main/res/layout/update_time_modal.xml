@@ -29,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal"
+        android:id="@+id/updateTxtPt92"
         android:layout_width="190dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/space4" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal3"
+        android:id="@+id/updateTxtD92"
         android:layout_width="190dp"
         android:layout_height="48dp"
         android:layout_marginStart="48dp"
@@ -48,7 +48,7 @@
         android:ems="10"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toEndOf="@+id/textView24"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal" />
+        app:layout_constraintTop_toBottomOf="@+id/updateTxtPt92" />
 
     <View
         android:id="@+id/space3"
@@ -58,10 +58,10 @@
         android:background="#005175"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal3" />
+        app:layout_constraintTop_toBottomOf="@+id/updateTxtD92" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btnCancelUpdateStock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/space3" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/btnUpdateStockModal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
