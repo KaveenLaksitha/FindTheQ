@@ -1,14 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.UserFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/cusname"
+        android:layout_width="333dp"
         android:layout_height="wrap_content"
-        android:text="User registration"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="Customer Name" />
+
+    <EditText
+        android:id="@+id/cusnic"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cusname"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="21dp"
+        android:ems="10"
+        android:hint="NIC" />
+
+    <EditText
+        android:id="@+id/cuspno"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cusnic"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:textSize="24dp"/>
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="Phone Number" />
+
+    <EditText
+        android:id="@+id/cusvehicletype"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cuspno"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="Vehicle Type" />
+
+    <EditText
+        android:id="@+id/cusvehicleid"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cuspno"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="74dp"
+        android:layout_marginEnd="21dp"
+        android:ems="10"
+        android:hint="Vehicle ID" />
+
+    <EditText
+        android:id="@+id/cusfueltype"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cusvehicletype"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="25dp"
+        android:ems="10"
+        android:hint="Fuel Type"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/cuspassword"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cusfueltype"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="281dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="149dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/cuspassword"
+        android:layout_alignEnd="@+id/cuspassword"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="113dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="106dp"
+        android:text="Register" />
+
 </RelativeLayout>
