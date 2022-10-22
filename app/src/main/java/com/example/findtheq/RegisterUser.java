@@ -18,7 +18,7 @@ public class RegisterUser extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.fragment_user);
-            spinner = findViewById(R.id.cusvehicletype);
+           // spinner = findViewById(R.id.cusvehicletype);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterUser.this, android.R.layout.simple_spinner_item, vehicleType);
 
