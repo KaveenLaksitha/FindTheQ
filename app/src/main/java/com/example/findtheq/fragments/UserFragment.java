@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 
 import com.example.findtheq.R;
 
@@ -16,6 +17,8 @@ import com.example.findtheq.R;
  * create an instance of this fragment.
  */
 public class UserFragment extends Fragment {
+
+    private Spinner spinnerVehicleType;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,6 +54,12 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        View view = getLayoutInflater().inflate(R.layout.fragment_user,null);
+
+        spinnerVehicleType = view.findViewById(R.id.cusvehicletype);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
