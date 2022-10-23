@@ -1,22 +1,40 @@
 package com.example.findtheq.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class User {
 
+    @SerializedName("customername")
+    @Expose
     private String customername;
+
+    @SerializedName("vehicleid")
+    @Expose
     private String vehicleid;
+
+    @SerializedName("nic")
+    @Expose
     private String nic;
+
+    @SerializedName("phonenumber")
+    @Expose
     private String phonenumber;
+
+    @SerializedName("vehicletype")
+    @Expose
     private String vehicletype;
-    private String fueltype;
+
+    @SerializedName("password")
+    @Expose
     private String password;
 
-    public User(String customername, String vehicleid, String nic, String phonenumber, String vehicletype,  String fueltype , String password) {
+    public User(String customername, String vehicleid, String nic, String phonenumber, String vehicletype, String password) {
         this.customername = customername;
         this.vehicleid = vehicleid;
         this.nic = nic;
         this.phonenumber = phonenumber;
         this.vehicletype = vehicletype;
-        this.fueltype = fueltype;
         this.password = password;
     }
 
@@ -40,7 +58,5 @@ public class User {
         return vehicletype;
     }
 
-    public String getFueltype() {
-        return fueltype;
-    }
+
 }

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".fragments.FillingStationFragment">
 
+
     <EditText
         android:id="@+id/stationid"
         android:layout_width="333dp"
@@ -13,12 +14,11 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="113dp"
-        android:layout_marginEnd="17dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="19dp"
         android:ems="10"
         android:hint="Station ID" />
-
 
     <EditText
         android:id="@+id/ownername"
@@ -29,7 +29,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="39dp"
         android:layout_marginEnd="21dp"
         android:ems="10"
         android:hint="Owner Name" />
@@ -41,10 +41,10 @@
         android:layout_below="@+id/ownername"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="18dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="Station Name" />
 
@@ -55,10 +55,10 @@
         android:layout_below="@+id/stationname"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:hint="Address" />
 
@@ -70,24 +70,22 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="22dp"
         android:ems="10"
         android:hint="Phone Number" />
 
-
     <Button
-        android:id="@+id/stationsignup"
-        android:layout_width="132dp"
+        android:id="@+id/btnstationRegister"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/cuspassword"
-        android:layout_alignEnd="@+id/cuspassword"
+        android:layout_below="@+id/ownerphonenumber"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="116dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginTop="81dp"
+        android:layout_marginBottom="162dp"
         android:text="Register" />
+
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.findtheq.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.findtheq.LoginActivity;
 import com.example.findtheq.R;
+import com.example.findtheq.models.ClientRetrofit;
+import com.example.findtheq.models.Station;
+import com.example.findtheq.models.User;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +28,10 @@ import com.example.findtheq.R;
  * create an instance of this fragment.
  */
 public class FillingStationFragment extends Fragment {
+
+    EditText stationid, stationname, ownername, phonenumber, address, arrivaltime, finishtime, fueltype;
+
+    Button btnstationRegister;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +77,52 @@ public class FillingStationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_filling_station, container, false);
+        View view = inflater.inflate(R.layout.fragment_filling_station, container, false);
+
+        stationid = view.findViewById(R.id.stationid);
+        stationname = view.findViewById(R.id.stationname);
+        ownername = view.findViewById(R.id.ownername);
+        phonenumber = view.findViewById(R.id.ownerphonenumber);
+        address = view.findViewById(R.id.stationaddress);
+
+        btnstationRegister = view.findViewById(R.id.btnstationRegister);
+
+        btnstationRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Station station = new Station(stationid.getText().toString(),
+                        stationname.getText().toString(),
+                        ownername.getText().toString(),
+                        phonenumber.getText().toString(),
+                        address.getText().toString()
+                        );
+
+                registerStationSave(station);
+            }
+        });
+
+
+        return view;
+    }
+
+    private void registerStationSave(Station station) {
+        Call<Station> call = ClientRetrofit.getInstance().getMyApi().stationRegister(station);
+
+        call.enqueue(new Callback<Station>() {
+            @Override
+            public void onResponse(Call<Station> call, Response<Station> response) {
+                if(response.code() == 201) {
+                    Toast.makeText(getActivity().getApplicationContext(), "Register successfully" , Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(getActivity(), LoginActivity.class);
+                }else if(response.code() == 400){
+                    Toast.makeText(getActivity().getApplicationContext(), "Register unsuccessfully" , Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Station> call, Throwable t) {
+                Toast.makeText(getActivity().getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

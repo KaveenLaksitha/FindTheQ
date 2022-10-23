@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.findtheq.fragments.UserFragment;
+import com.example.findtheq.models.ClientRetrofit;
 import com.example.findtheq.models.User;
 import com.example.findtheq.service.UserClient;
 
@@ -25,10 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Retrofit retrofit;
-    private UserClient retrofitInterface;
-    private String BASE_URL = UserClient.BASE_URL;
-
     TextView register;
     Button signin;
 
@@ -37,14 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        retrofitInterface = retrofit.create(UserClient.class);
-
-        signin = findViewById(R.id.signin);
+        signin = findViewById(R.id.btnLogin);
         EditText username = findViewById(R.id.username);
         EditText password = findViewById(R.id.password);
 
@@ -55,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                map.put("customername" , username.getText().toString());
                map.put("password" , password.getText().toString());
 
-               Call<User> call = retrofitInterface.executeLogin(map);
+               Call<User> call = ClientRetrofit.getInstance().getMyApi().executeLogin(map);
 
                call.enqueue(new Callback<User>() {
                    @Override
@@ -84,8 +74,8 @@ public class LoginActivity extends AppCompatActivity {
 
         register.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-//                Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
-                Intent i = new Intent(getApplicationContext(), StationUserView.class);
+               Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
+  //            Intent i = new Intent(getApplicationContext(), StationUserView.class);
                 startActivity(i);
             }
         });

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
     android:layout_margin="0dp">
 
     <TextView
@@ -29,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <EditText
-        android:id="@+id/updateTxtPt92"
+        android:id="@+id/etPetrol"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -44,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/space4" />
 
     <EditText
-        android:id="@+id/updateTxtD92"
+        android:id="@+id/etDiesel"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -53,7 +54,7 @@
         android:ems="10"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toEndOf="@+id/textView24"
-        app:layout_constraintTop_toBottomOf="@+id/updateTxtPt92" />
+        app:layout_constraintTop_toBottomOf="@+id/etPetrol" />
 
     <TextView
         android:id="@+id/textView24"
@@ -64,7 +65,7 @@
         android:text="@string/txtDiesel"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateTxtPt92" />
+        app:layout_constraintTop_toBottomOf="@+id/etPetrol" />
 
     <View
         android:id="@+id/space3"
@@ -74,10 +75,10 @@
         android:background="#005175"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateTxtD92" />
+        app:layout_constraintTop_toBottomOf="@+id/etDiesel" />
 
     <Button
-        android:id="@+id/btnCancelUpdateStock"
+        android:id="@+id/btnCancelStock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -88,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/space3" />
 
     <Button
-        android:id="@+id/btnUpdateStockModal"
+        android:id="@+id/btnUpdateStock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
