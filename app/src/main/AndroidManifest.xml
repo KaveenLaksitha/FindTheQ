@@ -13,6 +13,13 @@
         android:theme="@style/Theme.FindTheQ"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".StationListView"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".QueueDetails"
             android:exported="false">
             <meta-data
