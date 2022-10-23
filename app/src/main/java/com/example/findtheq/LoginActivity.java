@@ -17,6 +17,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+//                Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
+//                Intent i = new Intent(getApplicationContext(), StationListView.class);
+//                startActivity(i);
+            }
+        });
+
         register = findViewById(R.id.txtViewRegister);
         register.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
