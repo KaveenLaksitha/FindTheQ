@@ -32,9 +32,9 @@ public class ListAdapter extends ArrayAdapter<StationListView> {
         TextView queuelength = convertView.findViewById(R.id.queuelength);
         TextView address = convertView.findViewById(R.id.address);
 
-        stationname.setText(stationListView.stationname);
-        queuelength.setText(stationListView.queuelength);
-        address.setText(stationListView.address);
+//        stationname.setText(stationListView.stationname);
+//        queuelength.setText(stationListView.queuelength);
+//        address.setText(stationListView.address);
 
         return super.getView(position, convertView, parent);
     }

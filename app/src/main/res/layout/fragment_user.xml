@@ -109,7 +109,7 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/cussignup"
         android:layout_width="149dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/cuspassword"
