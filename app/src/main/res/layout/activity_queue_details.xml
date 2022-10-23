@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QueueDetails">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="368dp"
+        android:layout_height="701dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/border"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_height="593dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+
+            <TextView
+                android:id="@+id/queueDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Queue Details"
+                android:textSize="34sp"
+                android:layout_marginLeft="25dp"/>
+
+            <TextView
+                android:id="@+id/carCountLabel"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="30dp"
+                android:textSize="20dp"
+                android:text="Car" />
+
+            <TextView
+                android:id="@+id/carCount"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="-23dp"
+                android:text="10"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/vanCountLabel"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/carCount"
+                android:layout_marginLeft="30dp"
+                android:textSize="20dp"
+                android:text="Van" />
+
+            <TextView
+                android:id="@+id/vanCount"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/vanCountLabel"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="-23dp"
+                android:text="30"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/busCountLabel"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/vanCount"
+                android:layout_marginLeft="30dp"
+                android:textSize="20dp"
+                android:text="Bus" />
+
+            <TextView
+                android:id="@+id/busCount"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/busCountLabel"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="-23dp"
+                android:text="60"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/bikeCountLabel"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/busCount"
+                android:layout_marginLeft="30dp"
+                android:textSize="20dp"
+                android:text="Bus" />
+
+            <TextView
+                android:id="@+id/bikeCount"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bikeCountLabel"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="-23dp"
+                android:text="60"
+                android:textSize="20dp" />
+            
+            <TextView
+                android:id="@+id/allCountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vehicle Count"
+                android:textSize="20dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginLeft="0dp" />
+
+            <TextView
+                android:id="@+id/allCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="160"
+                android:textSize="20dp"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="-25dp" />
+
+            <Button
+                android:id="@+id/joinQueue"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Join to the Queue"
+                android:textSize="19dp">
+
+            </Button>
+            <Button
+                android:id="@+id/exitbefore"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Exit Before Fuel"
+                android:textSize="19dp">
+
+            </Button>
+
+            <Button
+                android:id="@+id/exitafter"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Exit After Fuel"
+                android:textSize="19dp">
+
+            </Button>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

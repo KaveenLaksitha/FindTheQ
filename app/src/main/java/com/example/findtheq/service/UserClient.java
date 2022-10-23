@@ -7,11 +7,13 @@ import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface UserClient {
 
-    String BASE_URL = "http://10.0.2.2:4000/api/";
+    String BASE_URL = "https://findtheqapi.herokuapp.com/api/";
 
     @POST("customers/register")
     Call<User> executeRegister(@Body User user);
@@ -22,5 +24,7 @@ public interface UserClient {
     @POST("stations/register")
     Call<Station> stationRegister(@Body Station station);
 
+    @GET("fuelstation/getCount/{stationid}")
+    Call<Object> getQueueCount(@Path("stationid") String stationid);
 
 }
