@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class Station {
 
-    @SerializedName("stationid")
+    @SerializedName("id")
     @Expose
-    private String stationid;
+    private String id;
 
-    @SerializedName("stationname")
+    @SerializedName("name")
     @Expose
-    private String stationname;
+    private String name;
 
     @SerializedName("ownername")
     @Expose
@@ -33,58 +33,116 @@ public class Station {
     @Expose
     private String finishtime;
 
-    @SerializedName("fueltype")
+    @SerializedName("status")
     @Expose
-    private String fueltype;
+    private Boolean status;
 
-    public Station(String stationid, String stationname, String ownername, String phonenumber, String address, String arrivaltime, String finishtime, String fueltype) {
-        this.stationid = stationid;
-        this.stationname = stationname;
+    @SerializedName("stock")
+    @Expose
+    private StockModel stock;
+
+    @SerializedName("queue")
+    @Expose
+    private QueueModel queue;
+
+    public Station(String id, String name, String ownername, String phonenumber, String address, String arrivaltime, String finishtime, Boolean status, StockModel stock, QueueModel queue) {
+        this.id = id;
+        this.name = name;
         this.ownername = ownername;
         this.phonenumber = phonenumber;
         this.address = address;
         this.arrivaltime = arrivaltime;
         this.finishtime = finishtime;
-        this.fueltype = fueltype;
+        this.status = status;
+        this.stock = stock;
+        this.queue = queue;
     }
 
-    public Station(String stationid, String stationname, String ownername, String phonenumber, String address) {
-        this.stationid = stationid;
-        this.stationname = stationname;
+    public Station(String id, String name, String ownername, String phonenumber, String address) {
+        this.id = id;
+        this.name = name;
         this.ownername = ownername;
         this.phonenumber = phonenumber;
         this.address = address;
     }
 
-    public String getStationid() {
-        return stationid;
+    public String getId() {
+        return id;
     }
 
-    public String getStationname() {
-        return stationname;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getOwnername() {
         return ownername;
     }
 
+    public void setOwnername(String ownername) {
+        this.ownername = ownername;
+    }
+
     public String getPhonenumber() {
         return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     public String getAddress() {
         return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getArrivaltime() {
         return arrivaltime;
+    }
+
+    public void setArrivaltime(String arrivaltime) {
+        this.arrivaltime = arrivaltime;
     }
 
     public String getFinishtime() {
         return finishtime;
     }
 
-    public String getFueltype() {
-        return fueltype;
+    public void setFinishtime(String finishtime) {
+        this.finishtime = finishtime;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public StockModel getStock() {
+        return stock;
+    }
+
+    public void setStock(StockModel stock) {
+        this.stock = stock;
+    }
+
+    public QueueModel getQueue() {
+        return queue;
+    }
+
+    public void setQueue(QueueModel queue) {
+        this.queue = queue;
     }
 }
