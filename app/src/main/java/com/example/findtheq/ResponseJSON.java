@@ -4,7 +4,7 @@ import com.example.findtheq.models.Station;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseJSON {
-    @SerializedName("")
+//    @SerializedName("")
     private Station[] stationsArray;
 
     public Station[] getStationsArray() {

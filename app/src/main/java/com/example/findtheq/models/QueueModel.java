@@ -1,10 +1,23 @@
 package com.example.findtheq.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class QueueModel {
+    @SerializedName("Car")
+    @Expose
     private int car;
+    @SerializedName("Bike")
+    @Expose
     private int bike;
+    @SerializedName("Tuk")
+    @Expose
     private int tuk;
+    @SerializedName("Van")
+    @Expose
     private int van;
+    @SerializedName("Bus")
+    @Expose
     private int bus;
 
     public QueueModel(int car, int bike, int tuk, int van, int bus) {
@@ -55,3 +68,4 @@ public class QueueModel {
         this.bus = bus;
     }
 }
+
