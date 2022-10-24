@@ -8,7 +8,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/txtStationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/txtQueueLength"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -39,7 +39,7 @@
         android:text="@string/txtQueueLenght"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/txtStationName" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -48,11 +48,11 @@
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="@+id/txtStationName"
         app:srcCompat="@drawable/noun_fuel_pump_4990669" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/txtStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="available"
@@ -61,6 +61,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView11" />
+        app:layout_constraintTop_toTopOf="@+id/txtStationName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

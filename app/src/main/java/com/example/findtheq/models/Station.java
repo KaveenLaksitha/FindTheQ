@@ -35,7 +35,7 @@ public class Station {
 
     @SerializedName("status")
     @Expose
-    private Boolean status;
+    private String status;
 
     @SerializedName("stock")
     @Expose
@@ -45,7 +45,7 @@ public class Station {
     @Expose
     private QueueModel queue;
 
-    public Station(String id, String name, String ownername, String phonenumber, String address, String arrivaltime, String finishtime, Boolean status, StockModel stock, QueueModel queue) {
+    public Station(String id, String name, String ownername, String phonenumber, String address, String arrivaltime, String finishtime, String status, StockModel stock, QueueModel queue) {
         this.id = id;
         this.name = name;
         this.ownername = ownername;
@@ -122,11 +122,11 @@ public class Station {
         this.finishtime = finishtime;
     }
 
-    public Boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
