@@ -21,9 +21,9 @@
 
         <LinearLayout
             android:layout_width="320dp"
-            android:layout_height="593dp"
+            android:layout_height="680dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical"
             android:padding="24dp">
 
@@ -35,6 +35,59 @@
                 android:text="Queue Details"
                 android:textSize="34sp"
                 android:layout_marginLeft="25dp"/>
+
+            <TextView
+                android:id="@+id/dieselStockLabel"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="20dp"
+                android:text="Diesel Stock" />
+
+            <TextView
+                android:id="@+id/dieselStock"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="-23dp"
+                android:text="1000"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/petrolStockLabel"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="20dp"
+                android:text="Petrol Stock" />
+
+            <TextView
+                android:id="@+id/petrolStock"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="-23dp"
+                android:text="2000"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/allCountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vehicle Count"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp" />
+
+            <TextView
+                android:id="@+id/allCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="160"
+                android:textSize="20dp"
+                android:layout_marginLeft="210dp"
+                android:layout_marginTop="-25dp" />
 
             <TextView
                 android:id="@+id/carCountLabel"
@@ -58,7 +111,7 @@
                 android:id="@+id/vanCountLabel"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/carCount"
                 android:layout_marginLeft="30dp"
                 android:textSize="20dp"
@@ -78,7 +131,7 @@
                 android:id="@+id/busCountLabel"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/vanCount"
                 android:layout_marginLeft="30dp"
                 android:textSize="20dp"
@@ -98,11 +151,11 @@
                 android:id="@+id/bikeCountLabel"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/busCount"
                 android:layout_marginLeft="30dp"
                 android:textSize="20dp"
-                android:text="Bus" />
+                android:text="Bike" />
 
             <TextView
                 android:id="@+id/bikeCount"
@@ -113,24 +166,28 @@
                 android:layout_marginTop="-23dp"
                 android:text="60"
                 android:textSize="20dp" />
-            
             <TextView
-                android:id="@+id/allCountLabel"
-                android:layout_width="wrap_content"
+                android:id="@+id/tukCountLabel"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:text="Vehicle Count"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/bikeCount"
+                android:layout_marginLeft="30dp"
                 android:textSize="20dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginLeft="0dp" />
+                android:text="Tuk" />
 
             <TextView
-                android:id="@+id/allCount"
-                android:layout_width="wrap_content"
+                android:id="@+id/tukCount"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="160"
-                android:textSize="20dp"
-                android:layout_marginLeft="190dp"
-                android:layout_marginTop="-25dp" />
+                android:layout_below="@+id/tukCountLabel"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="-23dp"
+                android:text="70"
+                android:textSize="20dp" />
+            
+
+
 
             <Button
                 android:id="@+id/joinQueue"
