@@ -1,11 +1,13 @@
 package com.example.findtheq;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.findtheq.models.ClientRetrofit;
 import com.example.findtheq.models.Station;
 import com.example.findtheq.service.UserClient;
 
@@ -22,6 +24,8 @@ public class StationListView extends AppCompatActivity {
 
     RecyclerView recyclerView;
     List<Station> stationList;
+    private ListAdapter itemAdapter;
+    private SearchView stationSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +35,9 @@ public class StationListView extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_station_list_view);
         stationList = new ArrayList<>();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://findtheqapi.herokuapp.com/api/").addConverterFactory(GsonConverterFactory.create()).build();
+        stationSearch = findViewById(R.id.stationSearch);
 
-        UserClient stationApi = retrofit.create(UserClient.class);
-        Call<List<Station>> call = stationApi.getStations();
+        Call<List<Station>> call = ClientRetrofit.getInstance().getMyApi().getStations();
 
         call.enqueue(new Callback<List<Station>>() {
             @Override

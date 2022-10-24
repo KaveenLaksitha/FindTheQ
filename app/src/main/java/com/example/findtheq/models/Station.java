@@ -45,6 +45,10 @@ public class Station {
     @Expose
     private QueueModel queue;
 
+    @SerializedName("password")
+    @Expose
+    private String password;
+
     public Station(String id, String name, String ownername, String phonenumber, String address, String arrivaltime, String finishtime, String status, StockModel stock, QueueModel queue) {
         this.id = id;
         this.name = name;
@@ -56,6 +60,7 @@ public class Station {
         this.status = status;
         this.stock = stock;
         this.queue = queue;
+
     }
 
     public Station(String id, String name, String ownername, String phonenumber, String address) {
@@ -64,7 +69,23 @@ public class Station {
         this.ownername = ownername;
         this.phonenumber = phonenumber;
         this.address = address;
+
     }
+
+    public Station(String id, String name, String ownername, String phonenumber, String address, String password) {
+        this.id = id;
+        this.name = name;
+        this.ownername = ownername;
+        this.phonenumber = phonenumber;
+        this.address = address;
+        this.password = password;
+    }
+
+    public Station(String id, String password) {
+        this.id = id;
+        this.password = password;
+    }
+
 
     public String getId() {
         return id;
@@ -144,5 +165,13 @@ public class Station {
 
     public void setQueue(QueueModel queue) {
         this.queue = queue;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

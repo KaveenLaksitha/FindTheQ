@@ -29,7 +29,7 @@ import retrofit2.Response;
  */
 public class UserFragment extends Fragment {
 
-    EditText customername, vehicleid, nic, phonenumber, vehicletype, password;
+    EditText customername, email,  vehicleid, nic, phonenumber, vehicletype, password;
 
     Button btnRegister;
 
@@ -84,6 +84,7 @@ public class UserFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_user, container, false);
 
         customername = view.findViewById(R.id.cusname);
+        email = view.findViewById(R.id.cusemail);
         vehicleid = view.findViewById(R.id.cusvehicleid);
         nic = view.findViewById(R.id.cusnic);
         phonenumber = view.findViewById(R.id.cuspno);
@@ -96,6 +97,7 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 User customer = new User(customername.getText().toString(),
+                        email.getText().toString(),
                         vehicleid.getText().toString(),
                         nic.getText().toString(),
                         phonenumber.getText().toString(),
@@ -121,6 +123,7 @@ public class UserFragment extends Fragment {
                 if(response.code() == 201) {
                     Toast.makeText(getActivity().getApplicationContext(), "Register successfully" , Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(i);
                 }else if(response.code() == 400){
                     Toast.makeText(getActivity().getApplicationContext(), "Register unsuccessfully" , Toast.LENGTH_LONG).show();
                 }

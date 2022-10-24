@@ -9,6 +9,10 @@ public class User {
     @Expose
     private String customername;
 
+    @SerializedName("email")
+    @Expose
+    private String email;
+
     @SerializedName("vehicleid")
     @Expose
     private String vehicleid;
@@ -29,12 +33,18 @@ public class User {
     @Expose
     private String password;
 
-    public User(String customername, String vehicleid, String nic, String phonenumber, String vehicletype, String password) {
+    public User(String customername, String email, String vehicleid, String nic, String phonenumber, String vehicletype, String password) {
         this.customername = customername;
+        this.email = email;
         this.vehicleid = vehicleid;
         this.nic = nic;
         this.phonenumber = phonenumber;
         this.vehicletype = vehicletype;
+        this.password = password;
+    }
+
+    public User(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
@@ -58,5 +68,11 @@ public class User {
         return vehicletype;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public String getEmail() {
+        return email;
+    }
 }

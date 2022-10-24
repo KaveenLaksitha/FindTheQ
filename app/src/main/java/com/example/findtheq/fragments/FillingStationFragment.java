@@ -30,7 +30,7 @@ import retrofit2.Response;
  */
 public class FillingStationFragment extends Fragment {
 
-    EditText id, name, ownername, phonenumber, address ;
+    EditText id, name, ownername, phonenumber, address, password ;
 
     Button btnstationRegister;
 
@@ -85,6 +85,7 @@ public class FillingStationFragment extends Fragment {
         ownername = view.findViewById(R.id.ownername);
         phonenumber = view.findViewById(R.id.ownerphonenumber);
         address = view.findViewById(R.id.stationaddress);
+        password = view.findViewById(R.id.stationpassword);
 
         btnstationRegister = view.findViewById(R.id.btnstationRegister);
 
@@ -95,7 +96,8 @@ public class FillingStationFragment extends Fragment {
                         name.getText().toString(),
                         ownername.getText().toString(),
                         phonenumber.getText().toString(),
-                        address.getText().toString()
+                        address.getText().toString(),
+                        password.getText().toString()
                         );
 
                 registerStationSave(station);

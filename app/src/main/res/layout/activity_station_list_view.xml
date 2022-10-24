@@ -31,8 +31,8 @@
         android:layout_marginTop="53dp"
         android:background="@drawable/listbg">
 
-        <EditText
-            android:id="@+id/FuelTypeUpdateInput"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/stationSearch"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginLeft="40dp"
@@ -44,7 +44,8 @@
             android:hint="Search ... "
             android:inputType="textPersonName"
             android:padding="8dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:queryHint="Search here.."/>
 
     </LinearLayout>
 

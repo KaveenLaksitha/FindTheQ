@@ -22,6 +22,9 @@ public interface UserClient {
     @POST("customers/login")
     Call<User> executeLogin(@Body HashMap<String, String> map);
 
+    @POST("fuelstation/login")
+    Call<Station> executeLoginStationOwner(@Body HashMap<String, String> map);
+
     @POST("fuelstation/fuelStationRegister")
     Call<Station> stationRegister(@Body Station station);
 
@@ -31,4 +34,6 @@ public interface UserClient {
     //get all stations
     @GET("fuelstation/viewAllFuelStation")
     Call<List<Station>> getStations();
+
+
 }
