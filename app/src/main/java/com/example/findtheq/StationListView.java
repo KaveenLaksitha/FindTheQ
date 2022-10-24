@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.findtheq.models.Station;
 import com.example.findtheq.service.UserClient;
@@ -72,6 +74,35 @@ public class StationListView extends AppCompatActivity {
 
             }
         });
+
+        //set touch listener to one item
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+
+                        System.out.println("car count >>>"+String.valueOf( stationList.get(position).getQueue().getCar()));
+
+                        Intent intent = new Intent();
+                        intent.setClass(StationListView.this, QueueDetails.class);
+                        intent.putExtra("id",stationList.get(position).getId());
+                        intent.putExtra("name",stationList.get(position).getName());
+                        intent.putExtra("diesel",stationList.get(position).getStock().getDiesel());
+                        intent.putExtra("petrol",stationList.get(position).getStock().getPetrol());
+                        intent.putExtra("car",String.valueOf( stationList.get(position).getQueue().getCar()));
+                        intent.putExtra("van",stationList.get(position).getQueue().getVan());
+                        intent.putExtra("bus",stationList.get(position).getQueue().getBus());
+                        intent.putExtra("bike",stationList.get(position).getQueue().getBike());
+                        intent.putExtra("tuk",stationList.get(position).getQueue().getTuk());
+//                        intent.putExtra("status",stationList.get(position).;
+                        startActivity(intent);
+
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
     }
 
     private void PutDataIntoRecyclerView(List<Station> stationList){

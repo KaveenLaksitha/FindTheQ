@@ -23,7 +23,7 @@ import retrofit2.Response;
 
 public class QueueDetails extends AppCompatActivity {
 
-    TextView carCount , vanCount , busCount, bikeCount, allCount  ;
+    TextView carCount , vanCount , busCount, bikeCount, allCount, tukCount;
     Button joinQueue , exitbefore , exitafter;
     String idStation = "001";
 
@@ -32,16 +32,26 @@ public class QueueDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_queue_details);
 
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
+
+        System.out.println("data>>>>>>"+ name);
+
         allCount = findViewById(R.id.allCount);
+        carCount = findViewById(R.id.carCount);
+        vanCount = findViewById(R.id.vanCount);
+        busCount = findViewById(R.id.busCount);
+        bikeCount = findViewById(R.id.bikeCount);
+        tukCount = findViewById(R.id.tukCount);
+
+        carCount.setText(intent.getStringExtra("car"));
 
         Call<Object> call = ClientRetrofit.getInstance().getMyApi().getQueueCount(idStation);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object>  call, Response<Object> response) {
 
-                System.out.println("response " + response.body().toString());
                 String message  = response.body().toString();
-                System.out.println(message.substring(7,10));
 
                 allCount.setText(message.substring(7,10));
 
