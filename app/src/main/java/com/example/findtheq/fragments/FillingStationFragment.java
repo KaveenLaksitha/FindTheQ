@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.findtheq.LoginActivity;
 import com.example.findtheq.R;
+import com.example.findtheq.StationUserView;
 import com.example.findtheq.models.ClientRetrofit;
 import com.example.findtheq.models.Station;
 import com.example.findtheq.models.User;
@@ -29,7 +30,7 @@ import retrofit2.Response;
  */
 public class FillingStationFragment extends Fragment {
 
-    EditText stationid, stationname, ownername, phonenumber, address, arrivaltime, finishtime, fueltype;
+    EditText id, name, ownername, phonenumber, address ;
 
     Button btnstationRegister;
 
@@ -79,8 +80,8 @@ public class FillingStationFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_filling_station, container, false);
 
-        stationid = view.findViewById(R.id.stationid);
-        stationname = view.findViewById(R.id.stationname);
+        id = view.findViewById(R.id.stationid);
+        name = view.findViewById(R.id.stationname);
         ownername = view.findViewById(R.id.ownername);
         phonenumber = view.findViewById(R.id.ownerphonenumber);
         address = view.findViewById(R.id.stationaddress);
@@ -90,8 +91,8 @@ public class FillingStationFragment extends Fragment {
         btnstationRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Station station = new Station(stationid.getText().toString(),
-                        stationname.getText().toString(),
+                Station station = new Station(id.getText().toString(),
+                        name.getText().toString(),
                         ownername.getText().toString(),
                         phonenumber.getText().toString(),
                         address.getText().toString()
@@ -113,7 +114,8 @@ public class FillingStationFragment extends Fragment {
             public void onResponse(Call<Station> call, Response<Station> response) {
                 if(response.code() == 201) {
                     Toast.makeText(getActivity().getApplicationContext(), "Register successfully" , Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(getActivity(), LoginActivity.class);
+                    Intent i = new Intent(getActivity(), StationUserView.class);
+                    startActivity(i);
                 }else if(response.code() == 400){
                     Toast.makeText(getActivity().getApplicationContext(), "Register unsuccessfully" , Toast.LENGTH_LONG).show();
                 }

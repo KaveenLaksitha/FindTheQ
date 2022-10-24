@@ -21,7 +21,7 @@ public interface UserClient {
     @POST("customers/login")
     Call<User> executeLogin(@Body HashMap<String, String> map);
 
-    @POST("stations/register")
+    @POST("fuelstation/fuelStationRegister")
     Call<Station> stationRegister(@Body Station station);
 
     @GET("fuelstation/getCount/{stationid}")
