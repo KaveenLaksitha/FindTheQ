@@ -1,6 +1,7 @@
 package com.example.findtheq.service;
 
 import com.example.findtheq.models.Station;
+import com.example.findtheq.models.UpdateStatusModel;
 import com.example.findtheq.models.User;
 
 import java.util.HashMap;
@@ -16,6 +17,8 @@ import retrofit2.http.Path;
 public interface UserClient {
 
     String BASE_URL = "https://findtheqapi.herokuapp.com/api/";
+//    String BASE_URL = "http://10.0.2.2:4000/api/";
+
 
     @POST("customers/register")
     Call<User> executeRegister(@Body User user);
@@ -45,5 +48,9 @@ public interface UserClient {
 
     @PUT("customers/setStatus/{email}")
     Call<Object> updateJoinedStatusFalse(@Path("email") String email);
+
+    //update joined status and increase/decrease vehicle count
+    @POST("customers/joinedstatus")
+    Call<Object> updateStatusAndCount(@Body UpdateStatusModel model);
 
 }

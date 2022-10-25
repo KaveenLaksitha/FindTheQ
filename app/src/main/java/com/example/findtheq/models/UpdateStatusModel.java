@@ -13,6 +13,10 @@ public class UpdateStatusModel {
         this.type = type;
     }
 
+    public UpdateStatusModel() {
+        super();
+    }
+
     public String getEmail() {
         return email;
     }

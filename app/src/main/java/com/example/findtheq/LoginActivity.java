@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.findtheq.models.ClientRetrofit;
+import com.example.findtheq.models.UpdateStatusModel;
 import com.example.findtheq.models.User;
 
 import java.util.HashMap;
@@ -90,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.code() == 200) {
                     Toast.makeText(LoginActivity.this, "login successfully" , Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(getApplicationContext(), StationListView.class);
+                    Intent i = new Intent(getApplicationContext(), StationListView.class).putExtra("email",loginUser.getEmail().toString());
                     startActivity(i);
                 }else if(response.code() == 404){
                     Toast.makeText(LoginActivity.this, "login unsuccessfully" , Toast.LENGTH_LONG).show();

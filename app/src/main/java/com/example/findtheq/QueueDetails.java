@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.findtheq.models.ClientRetrofit;
 import com.example.findtheq.models.Station;
+import com.example.findtheq.models.UpdateStatusModel;
 import com.example.findtheq.models.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -39,10 +40,9 @@ public class QueueDetails extends AppCompatActivity {
         //buttons
         joinQueue = findViewById(R.id.joinQueue);
         exitbefore = findViewById(R.id.exitbefore);
-        exitafter= findViewById(R.id.exitafter);
+        exitafter = findViewById(R.id.exitafter);
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
 
         //check whether user is already joined to the queue or not
         //and enable/disable relevant buttons
@@ -61,6 +61,14 @@ public class QueueDetails extends AppCompatActivity {
 
         int queueLength = (Integer.parseInt(intent.getStringExtra("car")) + Integer.parseInt(intent.getStringExtra("van")) + Integer.parseInt(intent.getStringExtra("bike")) + Integer.parseInt(intent.getStringExtra("tuk")) + Integer.parseInt(intent.getStringExtra("bus")));
 
+        String email = intent.getStringExtra("email");
+
+//        System.out.println("email>>>>>>>"+email);
+//        String email = "r";
+        String id = intent.getStringExtra("id");
+//        String vehicleType = intent.getStringExtra("owners_vehicle")
+        String vehicleType = "Car";
+
         title.setText(intent.getStringExtra("name"));
         allCount.setText(String.valueOf(queueLength));
         dieselStock.setText(intent.getStringExtra("diesel"));
@@ -75,12 +83,13 @@ public class QueueDetails extends AppCompatActivity {
         joinQueue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call<Object> call = ClientRetrofit.getInstance().getMyApi().updateJoinedStatus("r");
+                UpdateStatusModel body = new UpdateStatusModel(email,true,id,vehicleType);
+                Call<Object> call = ClientRetrofit.getInstance().getMyApi().updateStatusAndCount(body);
                 call.enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
 
-                        if(response.code() != 200){
+                        if (response.code() != 200) {
                             Toast.makeText(QueueDetails.this, "Ops, Error occurred!", Toast.LENGTH_LONG).show();
                             joinQueue.setEnabled(true);
                             return;
@@ -89,6 +98,9 @@ public class QueueDetails extends AppCompatActivity {
                         joinQueue.setEnabled(false);
                         exitbefore.setEnabled(true);
                         exitafter.setEnabled(true);
+                        Intent i = new Intent();
+                        i.setClass(getApplicationContext(),StationListView.class).putExtra("email",email);
+                        startActivity(i);
                     }
 
                     @Override
@@ -97,6 +109,28 @@ public class QueueDetails extends AppCompatActivity {
 
                     }
                 });
+//                Call<Object> call = ClientRetrofit.getInstance().getMyApi().updateJoinedStatus("r");
+//                call.enqueue(new Callback<Object>() {
+//                    @Override
+//                    public void onResponse(Call<Object> call, Response<Object> response) {
+//
+//                        if(response.code() != 200){
+//                            Toast.makeText(QueueDetails.this, "Ops, Error occurred!", Toast.LENGTH_LONG).show();
+//                            joinQueue.setEnabled(true);
+//                            return;
+//                        }
+//                        Toast.makeText(QueueDetails.this, "Success!", Toast.LENGTH_SHORT).show();
+//                        joinQueue.setEnabled(false);
+//                        exitbefore.setEnabled(true);
+//                        exitafter.setEnabled(true);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Object> call, Throwable t) {
+//                        Log.e("Error", t.getMessage());
+//
+//                    }
+//                });
             }
         });
 
@@ -104,12 +138,13 @@ public class QueueDetails extends AppCompatActivity {
         exitbefore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call<Object> call = ClientRetrofit.getInstance().getMyApi().updateJoinedStatusFalse("r");
+                UpdateStatusModel body = new UpdateStatusModel(email,false,id,vehicleType);
+                Call<Object> call = ClientRetrofit.getInstance().getMyApi().updateStatusAndCount(body);
                 call.enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
 
-                        if(response.code() != 200){
+                        if (response.code() != 200) {
                             Toast.makeText(QueueDetails.this, "Ops, Error occurred!", Toast.LENGTH_LONG).show();
                             joinQueue.setEnabled(true);
                             return;
@@ -118,6 +153,9 @@ public class QueueDetails extends AppCompatActivity {
                         exitbefore.setEnabled(false);
                         exitafter.setEnabled(false);
                         joinQueue.setEnabled(true);
+                        Intent i = new Intent();
+                        i.setClass(QueueDetails.this, StationListView.class).putExtra("email",email);
+                        startActivity(i);
                     }
 
                     @Override
@@ -126,23 +164,45 @@ public class QueueDetails extends AppCompatActivity {
 
                     }
                 });
+//                Call<Object> call = ClientRetrofit.getInstance().getMyApi().updateJoinedStatusFalse("r");
+//                call.enqueue(new Callback<Object>() {
+//                    @Override
+//                    public void onResponse(Call<Object> call, Response<Object> response) {
+//
+//                        if (response.code() != 200) {
+//                            Toast.makeText(QueueDetails.this, "Ops, Error occurred!", Toast.LENGTH_LONG).show();
+//                            joinQueue.setEnabled(true);
+//                            return;
+//                        }
+//                        Toast.makeText(QueueDetails.this, "Success!", Toast.LENGTH_SHORT).show();
+//                        exitbefore.setEnabled(false);
+//                        exitafter.setEnabled(false);
+//                        joinQueue.setEnabled(true);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Object> call, Throwable t) {
+//                        Log.e("Error", t.getMessage());
+//
+//                    }
+//                });
             }
         });
 
     }
 
-    private  void checkIsJoined(){
+    private void checkIsJoined() {
         Call<User> call = ClientRetrofit.getInstance().getMyApi().getUserByEmail("r");
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
 
-                if(response.code() != 200){
+                if (response.code() != 200) {
                     Toast.makeText(QueueDetails.this, "Ops, Error occurred!", Toast.LENGTH_LONG).show();
                     joinQueue.setEnabled(true);
                     return;
                 }
-                if(response.body().getIsJoined().contains("true")){
+                if (response.body().getIsJoined().contains("true")) {
                     Toast.makeText(QueueDetails.this, "You have already joined to another queue!", Toast.LENGTH_LONG).show();
                     joinQueue.setEnabled(false);
                 }
@@ -156,19 +216,19 @@ public class QueueDetails extends AppCompatActivity {
         });
     }
 
-    private void setExitButtonStatusonLoad(){
+    private void setExitButtonStatusonLoad() {
         Call<User> call = ClientRetrofit.getInstance().getMyApi().getUserByEmail("r");
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
 
-                if(response.code() != 200){
+                if (response.code() != 200) {
                     Toast.makeText(QueueDetails.this, "Ops, Error occurred!", Toast.LENGTH_LONG).show();
                     exitbefore.setEnabled(true);
                     exitafter.setEnabled(true);
                     return;
                 }
-                if(response.body().getIsJoined().contains("false")){
+                if (response.body().getIsJoined().contains("false")) {
                     exitbefore.setEnabled(false);
                     exitafter.setEnabled(false);
                 }
