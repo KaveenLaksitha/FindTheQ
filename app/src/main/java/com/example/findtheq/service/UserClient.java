@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface UserClient {
@@ -21,6 +22,9 @@ public interface UserClient {
 
     @POST("customers/login")
     Call<User> executeLogin(@Body HashMap<String, String> map);
+
+    @GET("customers/{email}")
+    Call<User> getUserByEmail(@Path("email") String email);
 
     @POST("fuelstation/login")
     Call<Station> executeLoginStationOwner(@Body HashMap<String, String> map);
@@ -35,5 +39,11 @@ public interface UserClient {
     @GET("fuelstation/viewAllFuelStation")
     Call<List<Station>> getStations();
 
+    //update isJoined or not
+    @PUT("customers/updateJoined/{email}")
+    Call<Object> updateJoinedStatus(@Path("email") String email);
+
+    @PUT("customers/setStatus/{email}")
+    Call<Object> updateJoinedStatusFalse(@Path("email") String email);
 
 }

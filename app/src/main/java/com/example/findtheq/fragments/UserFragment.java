@@ -102,7 +102,8 @@ public class UserFragment extends Fragment {
                         nic.getText().toString(),
                         phonenumber.getText().toString(),
                         vehicletype.getText().toString(),
-                        password.getText().toString());
+                        password.getText().toString(),
+                        "false");
 
                 System.out.println( "data coming" + btnRegister);
                 registerUserSave(customer);
