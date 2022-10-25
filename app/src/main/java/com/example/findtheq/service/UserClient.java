@@ -35,5 +35,7 @@ public interface UserClient {
     @GET("fuelstation/viewAllFuelStation")
     Call<List<Station>> getStations();
 
-
+    //get all stations
+    @GET("fuelstation/viewOneFuelStation/{id}")
+    Call<Station> getOneStations(@Path("id") String id);
 }

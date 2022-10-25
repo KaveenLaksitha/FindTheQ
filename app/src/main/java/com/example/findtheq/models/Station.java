@@ -3,7 +3,7 @@ package com.example.findtheq.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Station {
+public class  Station {
 
     @SerializedName("id")
     @Expose

@@ -78,6 +78,7 @@ public class StationOwnerLogin extends AppCompatActivity {
                 if(response.code() == 200) {
                     Toast.makeText(StationOwnerLogin.this, "login successfully" , Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getApplicationContext(), StationUserView.class);
+                    i.putExtra("id" , loginUser.getId().toString());
                     startActivity(i);
                 }else if(response.code() == 404){
                     Toast.makeText(StationOwnerLogin.this, "login unsuccessfully" , Toast.LENGTH_LONG).show();

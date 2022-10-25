@@ -4,25 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.example.findtheq.models.ClientRetrofit;
+import com.example.findtheq.models.Station;
+
 import java.util.Calendar;
 import java.util.Locale;
 
-public class StationUserView extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+public class StationUserView extends AppCompatActivity {
+    TextView arrivalTimeDisplay, finishTimeDisplay , dieselDisplay ,petrolDisplay;
     Button btnUpdateStock, btnUpdateTime, btnTerminate;
     TimePickerDialog timePickerDialog;
     RadioButton genderradioButton;
     RadioGroup radioGroup;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +46,39 @@ public class StationUserView extends AppCompatActivity {
         // catch block to handle NullPointerException
         catch (NullPointerException e) {
         }
+
+        String stationId = getIntent().getStringExtra("id");
+
+        petrolDisplay = findViewById(R.id.petrolDisplay);
+        dieselDisplay = findViewById(R.id.dieselDisplay);
+
+
+        System.out.println("dataaa>>>>>>>>>>>>>>>>>>> " + stationId);
+
+        Call<Station> call = ClientRetrofit.getInstance().getMyApi().getOneStations(stationId);
+
+        call.enqueue(new Callback<Station>() {
+            @Override
+            public void onResponse(Call<Station> call, Response<Station> response) {
+                if(response.code() == 200) {
+                        System.out.println("data enawad? " + response.body());
+                        //System.out.println("data enawad? " + response.body().getStock().getPetrol());
+
+                       // petrolDisplay.setText(response.body().getStock().getPetrol().toString());
+
+                }else if(response.code() == 404){
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Station> call, Throwable t) {
+
+
+            }
+        });
+
 
         btnUpdateStock = findViewById(R.id.btnUpdateStock);
         btnUpdateTime = findViewById(R.id.btnUpdateTime);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,20 +94,57 @@ public class UserFragment extends Fragment {
 
         btnRegister = view.findViewById(R.id.btnRegister);
 
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User customer = new User(customername.getText().toString(),
-                        email.getText().toString(),
-                        vehicleid.getText().toString(),
-                        nic.getText().toString(),
-                        phonenumber.getText().toString(),
-                        vehicletype.getText().toString(),
-                        password.getText().toString());
 
-                System.out.println( "data coming" + btnRegister);
-                registerUserSave(customer);
+                try{
+                    if(TextUtils.isEmpty(customername.getText().toString())){
+                        customername.requestFocus();
+                        customername.setError("Please enter valid username");
+                    }else if(TextUtils.isEmpty(email.getText().toString())){
+                        email.requestFocus();
+                        email.setError("Please enter valid email");
+                    }else if(!email.getText().toString().matches(emailPattern)){
+                        email.requestFocus();
+                        email.setError("invalid email!");
+                    }else if(TextUtils.isEmpty(vehicleid.getText().toString())){
+                        vehicleid.requestFocus();
+                        vehicleid.setError("Please enter valid vehicle ID");
+                    }else if(TextUtils.isEmpty(nic.getText().toString())){
+                        nic.requestFocus();
+                        nic.setError("Please enter valid NIC");
+                    }else if(TextUtils.isEmpty(phonenumber.getText().toString())){
+                        phonenumber.requestFocus();
+                        phonenumber.setError("Please enter valid phone number");
+                    }else if(TextUtils.isEmpty(vehicletype.getText().toString())){
+                        vehicletype.requestFocus();
+                        vehicletype.setError("Please enter valid vehicle Type");
+                    }else if(TextUtils.isEmpty(vehicletype.getText().toString())){
+                        vehicletype.requestFocus();
+                        vehicletype.setError("Please enter valid vehicle Type");
+                    }else if(TextUtils.isEmpty(password.getText().toString())){
+                        password.requestFocus();
+                        password.setError("Please enter valid password");
+                    }else{
+                        User customer = new User(customername.getText().toString(),
+                                email.getText().toString(),
+                                vehicleid.getText().toString(),
+                                nic.getText().toString(),
+                                phonenumber.getText().toString(),
+                                vehicletype.getText().toString(),
+                                password.getText().toString());
 
+                        System.out.println( "data coming" + btnRegister);
+                        registerUserSave(customer);
+                    }
+
+                }catch (Exception e){
+                    Toast.makeText(getActivity().getApplicationContext(),"Internal Server Error",Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
         return  view;

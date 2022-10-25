@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,15 +93,43 @@ public class FillingStationFragment extends Fragment {
         btnstationRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Station station = new Station(id.getText().toString(),
-                        name.getText().toString(),
-                        ownername.getText().toString(),
-                        phonenumber.getText().toString(),
-                        address.getText().toString(),
-                        password.getText().toString()
+
+                try{
+                    if(TextUtils.isEmpty(id.getText().toString())){
+                        id.requestFocus();
+                        id.setError("Please enter valid station ID");
+                    }else if(TextUtils.isEmpty(name.getText().toString())){
+                        name.requestFocus();
+                        name.setError("Please enter valid station name");
+                    }else if(TextUtils.isEmpty(ownername.getText().toString())){
+                        ownername.requestFocus();
+                        ownername.setError("Please enter valid Owner Name");
+                    }else if(TextUtils.isEmpty(phonenumber.getText().toString())){
+                        phonenumber.requestFocus();
+                        phonenumber.setError("Please enter valid phone number");
+                    }else if(TextUtils.isEmpty(address.getText().toString())){
+                        address.requestFocus();
+                        address.setError("Please enter valid vehicle address");
+                    }else if(TextUtils.isEmpty(password.getText().toString())){
+                        password.requestFocus();
+                        password.setError("Please enter valid password");
+                    }else{
+                        Station station = new Station(id.getText().toString(),
+                                name.getText().toString(),
+                                ownername.getText().toString(),
+                                phonenumber.getText().toString(),
+                                address.getText().toString(),
+                                password.getText().toString()
                         );
 
-                registerStationSave(station);
+                        registerStationSave(station);
+                    }
+
+                }catch (Exception e){
+                    Toast.makeText(getActivity().getApplicationContext(),"Internal Server Error",Toast.LENGTH_SHORT).show();
+
+                }
+
             }
         });
 
