@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.findtheq.models.ClientRetrofit;
 import com.example.findtheq.models.Station;
+import com.example.findtheq.models.StockModel;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -47,10 +48,12 @@ public class StationUserView extends AppCompatActivity {
         catch (NullPointerException e) {
         }
 
-        String stationId = getIntent().getStringExtra("id");
+       String stationId = getIntent().getStringExtra("id");
 
         petrolDisplay = findViewById(R.id.petrolDisplay);
         dieselDisplay = findViewById(R.id.dieselDisplay);
+        arrivalTimeDisplay = findViewById(R.id.arrivalTimeDisplay);
+        finishTimeDisplay = findViewById(R.id.finishTimeDisplay);
 
 
         System.out.println("dataaa>>>>>>>>>>>>>>>>>>> " + stationId);
@@ -61,10 +64,12 @@ public class StationUserView extends AppCompatActivity {
             @Override
             public void onResponse(Call<Station> call, Response<Station> response) {
                 if(response.code() == 200) {
-                        System.out.println("data enawad? " + response.body());
-                        //System.out.println("data enawad? " + response.body().getStock().getPetrol());
+                        System.out.println("data enawad? " + response.body().getArrivaltime().toString());
 
-                       // petrolDisplay.setText(response.body().getStock().getPetrol().toString());
+                        petrolDisplay.setText(response.body().getStock().getPetrol().toString());
+                        dieselDisplay.setText(response.body().getStock().getDiesel().toString());
+                        arrivalTimeDisplay.setText(response.body().getArrivaltime().toString());
+                        finishTimeDisplay.setText(response.body().getFinishtime().toString());
 
                 }else if(response.code() == 404){
 
@@ -111,17 +116,71 @@ public class StationUserView extends AppCompatActivity {
             dialog.setCancelable(true);
             dialog.setContentView(R.layout.update_stock_modal);
 
+            String stationId = getIntent().getStringExtra("id");
+
             //Initializing the views of the dialog.
             final EditText updateTxtPt92 = dialog.findViewById(R.id.etPetrol);
             final EditText updateTxtD92 = dialog.findViewById(R.id.etDiesel);
+
+            Call<Station> call = ClientRetrofit.getInstance().getMyApi().getOneStations(stationId);
+
+            call.enqueue(new Callback<Station>() {
+                @Override
+                public void onResponse(Call<Station> call, Response<Station> response) {
+                    if(response.code() == 200) {
+                        System.out.println("data enawad? " + response.body().getArrivaltime().toString());
+
+                        updateTxtPt92.setText(response.body().getStock().getPetrol().toString());
+                        updateTxtD92.setText(response.body().getStock().getDiesel().toString());
+
+                    }else if(response.code() == 404){
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<Station> call, Throwable t) {
+
+
+                }
+            });
+
             Button btnUpdateStockModal = dialog.findViewById(R.id.btnUpdateStock);
             Button btnCancelUpdateStock = dialog.findViewById(R.id.btnCancelStock);
 
             dialog.show();
+            System.out.println(  " Diesal "+ updateTxtD92.getText().toString());
+
+            StockModel stockModelDieselPetrol = new StockModel(updateTxtD92.getText().toString() , updateTxtPt92.getText().toString());
+
+
+            Call<Object> call2 = ClientRetrofit.getInstance().getMyApi().updateStockDetails(stationId , stockModelDieselPetrol);
 
             btnUpdateStockModal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    System.out.println("update data" + stockModelDieselPetrol.getDiesel().toString());
+
+
+                    call2.enqueue(new Callback<Object>() {
+                        @Override
+                        public void onResponse(Call<Object> call, Response<Object> response) {
+                            if(response.code() == 200) {
+                                Toast.makeText(getApplicationContext(), "successfully" , Toast.LENGTH_LONG).show();
+
+                            }else if(response.code() == 404){
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<Object> call, Throwable t) {
+
+
+                        }
+                    });
                     dialog.dismiss();
                 }
             });
@@ -141,10 +200,39 @@ public class StationUserView extends AppCompatActivity {
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.update_stock_time_modal);
 
+        String stationId = getIntent().getStringExtra("id");
+
         final EditText updateTimeArrival = dialog.findViewById(R.id.etArrivalTimeStock);
         final EditText updateTimeFinish = dialog.findViewById(R.id.etFinishTimeStock);
+
         Button btnUpdateArrivals = dialog.findViewById(R.id.btnUpdateTimeStock);
         Button btnCancelTimeArrivals = dialog.findViewById(R.id.btnCancelStockTime);
+
+        Call<Station> call = ClientRetrofit.getInstance().getMyApi().getOneStations(stationId);
+
+        call.enqueue(new Callback<Station>() {
+            @Override
+            public void onResponse(Call<Station> call, Response<Station> response) {
+                if(response.code() == 200) {
+                    System.out.println("data enawad? " + response.body().getArrivaltime().toString());
+
+                    updateTimeArrival.setText(response.body().getArrivaltime().toString());
+                    updateTimeFinish.setText(response.body().getFinishtime().toString());
+
+                }else if(response.code() == 404){
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Station> call, Throwable t) {
+
+
+            }
+        });
+
+       // Station updateArrivalFinishTime = new Station(stationId,arrivalTimeDisplay,finishTimeDisplay);
 
         updateTimeArrival.setOnClickListener(new View.OnClickListener() {
             @Override

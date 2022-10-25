@@ -1,5 +1,8 @@
 package com.example.findtheq.models;
 
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -84,6 +87,17 @@ public class  Station {
     public Station(String id, String password) {
         this.id = id;
         this.password = password;
+    }
+
+    public Station(String id, StockModel stock) {
+        this.id = id;
+        this.stock = stock;
+    }
+
+    public Station(String id, String arrivaltime, String finishtime) {
+        this.id = id;
+        this.arrivaltime = arrivaltime;
+        this.finishtime = finishtime;
     }
 
 

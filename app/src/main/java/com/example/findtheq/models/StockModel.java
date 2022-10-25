@@ -1,7 +1,14 @@
 package com.example.findtheq.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class StockModel {
+    @SerializedName("diesel")
+    @Expose
     private String Diesel;
+    @SerializedName("petrol")
+    @Expose
     private String Petrol;
 
     public StockModel(String diesel, String petrol) {

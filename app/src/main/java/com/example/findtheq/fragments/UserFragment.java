@@ -100,6 +100,7 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+
                 try{
                     if(TextUtils.isEmpty(customername.getText().toString())){
                         customername.requestFocus();
@@ -129,13 +130,15 @@ public class UserFragment extends Fragment {
                         password.requestFocus();
                         password.setError("Please enter valid password");
                     }else{
+
                         User customer = new User(customername.getText().toString(),
                                 email.getText().toString(),
                                 vehicleid.getText().toString(),
                                 nic.getText().toString(),
                                 phonenumber.getText().toString(),
                                 vehicletype.getText().toString(),
-                                password.getText().toString());
+                                password.getText().toString(),
+                                "false");
 
                         System.out.println( "data coming" + btnRegister);
                         registerUserSave(customer);

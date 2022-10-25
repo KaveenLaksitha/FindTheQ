@@ -33,7 +33,11 @@ public class User {
     @Expose
     private String password;
 
-    public User(String customername, String email, String vehicleid, String nic, String phonenumber, String vehicletype, String password) {
+    @SerializedName("isJoined")
+    @Expose
+    private String isJoined;
+
+    public User(String customername, String email, String vehicleid, String nic, String phonenumber, String vehicletype, String password, String isJoined) {
         this.customername = customername;
         this.email = email;
         this.vehicleid = vehicleid;
@@ -41,6 +45,7 @@ public class User {
         this.phonenumber = phonenumber;
         this.vehicletype = vehicletype;
         this.password = password;
+        this.isJoined = isJoined;
     }
 
     public User(String email, String password) {
@@ -74,5 +79,13 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getIsJoined() {
+        return isJoined;
+    }
+
+    public void setIsJoined(String isJoined) {
+        this.isJoined = isJoined;
     }
 }
