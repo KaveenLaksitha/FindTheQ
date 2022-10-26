@@ -20,6 +20,8 @@ import com.example.findtheq.models.ClientRetrofit;
 import com.example.findtheq.models.Station;
 import com.example.findtheq.models.StockModel;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -28,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StationUserView extends AppCompatActivity {
-    TextView arrivalTimeDisplay, finishTimeDisplay, dieselDisplay, petrolDisplay;
+    TextView viewStationStationName, txtCurrentDate, arrivalTimeDisplay, finishTimeDisplay, dieselDisplay, petrolDisplay;
     Button btnUpdateStock, btnUpdateTime, btnTerminate;
     TimePickerDialog timePickerDialog;
     RadioButton radioButton;
@@ -43,6 +45,8 @@ public class StationUserView extends AppCompatActivity {
 
         String stationId = getIntent().getStringExtra("id");
         this.stationID = stationId;
+        viewStationStationName= findViewById(R.id.viewStationStationName);
+        txtCurrentDate = findViewById(R.id.txtCurrentDate);
         petrolDisplay = findViewById(R.id.petrolDisplay);
         dieselDisplay = findViewById(R.id.dieselDisplay);
         arrivalTimeDisplay = findViewById(R.id.arrivalTimeDisplay);
@@ -50,6 +54,11 @@ public class StationUserView extends AppCompatActivity {
         btnUpdateStock = findViewById(R.id.btnUpdateStock);
         btnUpdateTime = findViewById(R.id.btnUpdateTime);
         btnTerminate = findViewById(R.id.btnTerminate);
+
+        //set current date
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        txtCurrentDate.setText(dtf.format(now));
 
         getStation(stationId);
 
@@ -82,11 +91,11 @@ public class StationUserView extends AppCompatActivity {
             @Override
             public void onResponse(Call<Station> call, Response<Station> response) {
                 if (response.code() == 200) {
-
-                    petrolDisplay.setText(response.body().getStock().getPetrol().toString());
-                    dieselDisplay.setText(response.body().getStock().getDiesel().toString());
-                    arrivalTimeDisplay.setText(response.body().getArrivaltime().toString());
-                    finishTimeDisplay.setText(response.body().getFinishtime().toString());
+                    viewStationStationName.setText(response.body().getName());
+                    petrolDisplay.setText(response.body().getStock().getPetrol().concat(" L"));
+                    dieselDisplay.setText(response.body().getStock().getDiesel().concat(" L"));
+                    arrivalTimeDisplay.setText(response.body().getArrivaltime());
+                    finishTimeDisplay.setText(response.body().getFinishtime());
 
                 } else if (response.code() == 404) {
 
@@ -194,8 +203,6 @@ public class StationUserView extends AppCompatActivity {
             @Override
             public void onResponse(Call<Station> call, Response<Station> response) {
                 if (response.code() == 200) {
-                    System.out.println("data enawad? " + response.body().getArrivaltime().toString());
-
                     updateTimeArrival.setText(response.body().getArrivaltime().toString());
                     updateTimeFinish.setText(response.body().getFinishtime().toString());
 
