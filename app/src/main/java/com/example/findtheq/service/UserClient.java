@@ -20,7 +20,6 @@ public interface UserClient {
 //    String BASE_URL = "https://findtheqapi.herokuapp.com/api/";
     String BASE_URL = "http://10.0.2.2:4000/api/";
 
-
     @POST("customers/register")
     Call<User> executeRegister(@Body User user);
 
@@ -61,4 +60,9 @@ public interface UserClient {
     @PUT("fuelstation/updateStock/{id}")
     Call<Object> updateStockDetails(@Path("id") String id, @Body StockModel stockModel);
 
+    @PUT("fuelstation/updateStockTime/{id}")
+    Call<Object> updateTime(@Path("id") String id, @Body Station station);
+
+    @PUT("fuelstation/updateStatus/{id}/{status}")
+    Call<Object> updateStatus(@Path("id") String id, @Path("status") String status);
 }

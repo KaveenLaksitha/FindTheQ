@@ -12,4 +12,5 @@
     <string name="txtUpdate">Update</string>
     <string name="txtCancel">Cancel</string>
     <string name="txtQueueLenght">Queue Length :</string>
+    <string name="txtStatus">Current Status</string>
 </resources>

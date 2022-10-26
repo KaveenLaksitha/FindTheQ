@@ -30,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StationUserView extends AppCompatActivity {
-    TextView viewStationStationName, txtCurrentDate, arrivalTimeDisplay, finishTimeDisplay, dieselDisplay, petrolDisplay;
+    TextView viewStationStationName, txtCurrentDate, arrivalTimeDisplay, finishTimeDisplay, dieselDisplay, petrolDisplay, statusDisplay;
     Button btnUpdateStock, btnUpdateTime, btnTerminate;
     TimePickerDialog timePickerDialog;
     RadioButton radioButton;
@@ -45,12 +45,13 @@ public class StationUserView extends AppCompatActivity {
 
         String stationId = getIntent().getStringExtra("id");
         this.stationID = stationId;
-        viewStationStationName= findViewById(R.id.viewStationStationName);
+        viewStationStationName = findViewById(R.id.viewStationStationName);
         txtCurrentDate = findViewById(R.id.txtCurrentDate);
         petrolDisplay = findViewById(R.id.petrolDisplay);
         dieselDisplay = findViewById(R.id.dieselDisplay);
         arrivalTimeDisplay = findViewById(R.id.arrivalTimeDisplay);
         finishTimeDisplay = findViewById(R.id.finishTimeDisplay);
+        statusDisplay = findViewById(R.id.statusDisplay);
         btnUpdateStock = findViewById(R.id.btnUpdateStock);
         btnUpdateTime = findViewById(R.id.btnUpdateTime);
         btnTerminate = findViewById(R.id.btnTerminate);
@@ -84,18 +85,20 @@ public class StationUserView extends AppCompatActivity {
     }
 
     //method to get data from station id
-    private void getStation(String stationId){
+    private void getStation(String stationId) {
         Call<Station> call = ClientRetrofit.getInstance().getMyApi().getOneStations(stationId);
 
         call.enqueue(new Callback<Station>() {
             @Override
             public void onResponse(Call<Station> call, Response<Station> response) {
                 if (response.code() == 200) {
+
                     viewStationStationName.setText(response.body().getName());
                     petrolDisplay.setText(response.body().getStock().getPetrol().concat(" L"));
                     dieselDisplay.setText(response.body().getStock().getDiesel().concat(" L"));
                     arrivalTimeDisplay.setText(response.body().getArrivaltime());
                     finishTimeDisplay.setText(response.body().getFinishtime());
+                    statusDisplay.setText(response.body().getStatus());
 
                 } else if (response.code() == 404) {
 
@@ -203,24 +206,19 @@ public class StationUserView extends AppCompatActivity {
             @Override
             public void onResponse(Call<Station> call, Response<Station> response) {
                 if (response.code() == 200) {
-                    updateTimeArrival.setText(response.body().getArrivaltime().toString());
-                    updateTimeFinish.setText(response.body().getFinishtime().toString());
-
+                    updateTimeArrival.setText(response.body().getArrivaltime());
+                    updateTimeFinish.setText(response.body().getFinishtime());
                 } else if (response.code() == 404) {
 
                 }
-
             }
 
             @Override
             public void onFailure(Call<Station> call, Throwable t) {
-
-
             }
         });
 
-        // Station updateArrivalFinishTime = new Station(stationId,arrivalTimeDisplay,finishTimeDisplay);
-
+        //to view time picker
         updateTimeArrival.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,6 +237,7 @@ public class StationUserView extends AppCompatActivity {
             }
         });
 
+        //to view time picker
         updateTimeFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -262,7 +261,29 @@ public class StationUserView extends AppCompatActivity {
         btnUpdateArrivals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                //set current date
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd");
+                LocalDateTime now = LocalDateTime.now();
+
+                Station updateArrivalFinishTime = new Station(stationId, (dtf.format(now) + "@" ).concat(updateTimeArrival.getText().toString()), (dtf.format(now) + "@" ).concat(updateTimeFinish.getText().toString()));
+                Call<Object> updateTimeCall = ClientRetrofit.getInstance().getMyApi().updateTime(stationId, updateArrivalFinishTime);
+                updateTimeCall.enqueue(new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        if (response.code() == 200) {
+                            Toast.makeText(getApplicationContext(), "successfully updated!", Toast.LENGTH_LONG).show();
+                            getStation(stationId);
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Oops, Error occurred!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+
+                    }
+                });
             }
         });
 
@@ -282,9 +303,18 @@ public class StationUserView extends AppCompatActivity {
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.update_status_modal);
 
+        String stationId = getIntent().getStringExtra("id");
+
         radioGroup = dialog.findViewById(R.id.radioGroup);
         Button btnUpdateStatus = dialog.findViewById(R.id.btnUpdateStatus);
         Button btnCancelStatus = dialog.findViewById(R.id.btnCancelStatus);
+
+        if((statusDisplay.getText().toString().contains("Available"))){
+                    radioGroup.check(R.id.radiotrue);
+        }else{
+                    radioGroup.check(R.id.radiofalse);
+        }
+
 
         dialog.show();
 
@@ -293,20 +323,38 @@ public class StationUserView extends AppCompatActivity {
             public void onClick(View v) {
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 radioButton = dialog.findViewById(selectedId);
+
+                String status;
+
                 if (selectedId == -1) {
                     Toast.makeText(StationUserView.this, "Nothing selected", Toast.LENGTH_SHORT).show();
                 } else {
                     String txt = (String) radioButton.getText();
-                    Boolean status;
-                    if (txt.toLowerCase().contains("active")) {
-                        status = true;
+                    if (txt.toLowerCase().contains("available")) {
+                        status = "Available";
                     } else {
-                        status = false;
+                        status = "Out of Stock";
                     }
-                    System.out.println("status >>>>" + status);
-                    Toast.makeText(StationUserView.this, radioButton.getText(), Toast.LENGTH_SHORT).show();
+
+                    Call<Object> call2 = ClientRetrofit.getInstance().getMyApi().updateStatus(stationId, status);
+                    call2.enqueue(new Callback<Object>() {
+                        @Override
+                        public void onResponse(Call<Object> call, Response<Object> response) {
+                            if (response.code() == 200) {
+                                Toast.makeText(getApplicationContext(), "successfully updated!", Toast.LENGTH_LONG).show();
+                                getStation(stationId);
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Oops, Error occurred!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Object> call, Throwable t) {
+
+                        }
+                    });
                 }
-//                dialog.dismiss();
             }
         });
 

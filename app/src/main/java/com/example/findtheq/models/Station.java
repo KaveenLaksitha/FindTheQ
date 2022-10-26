@@ -100,7 +100,6 @@ public class  Station {
         this.finishtime = finishtime;
     }
 
-
     public String getId() {
         return id;
     }
