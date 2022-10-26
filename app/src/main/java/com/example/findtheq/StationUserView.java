@@ -36,15 +36,13 @@ public class StationUserView extends AppCompatActivity {
     RadioButton radioButton;
     RadioGroup radioGroup;
 
-    private String stationID;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_user_view);
 
         String stationId = getIntent().getStringExtra("id");
-        this.stationID = stationId;
+
         viewStationStationName = findViewById(R.id.viewStationStationName);
         txtCurrentDate = findViewById(R.id.txtCurrentDate);
         petrolDisplay = findViewById(R.id.petrolDisplay);
@@ -91,8 +89,8 @@ public class StationUserView extends AppCompatActivity {
         call.enqueue(new Callback<Station>() {
             @Override
             public void onResponse(Call<Station> call, Response<Station> response) {
-                if (response.code() == 200) {
 
+                if (response.code() == 200) {
                     viewStationStationName.setText(response.body().getName());
                     petrolDisplay.setText(response.body().getStock().getPetrol().concat(" L"));
                     dieselDisplay.setText(response.body().getStock().getDiesel().concat(" L"));
@@ -122,6 +120,7 @@ public class StationUserView extends AppCompatActivity {
         dialog.setContentView(R.layout.update_stock_modal);
 
         String stationId = getIntent().getStringExtra("id");
+
 
         //Initializing the views of the dialog.
         final EditText updateTxtPt92 = dialog.findViewById(R.id.etPetrol);

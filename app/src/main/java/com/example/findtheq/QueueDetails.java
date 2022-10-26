@@ -21,6 +21,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,11 +63,7 @@ public class QueueDetails extends AppCompatActivity {
         int queueLength = (Integer.parseInt(intent.getStringExtra("car")) + Integer.parseInt(intent.getStringExtra("van")) + Integer.parseInt(intent.getStringExtra("bike")) + Integer.parseInt(intent.getStringExtra("tuk")) + Integer.parseInt(intent.getStringExtra("bus")));
 
         String email = intent.getStringExtra("email");
-
-//        System.out.println("email>>>>>>>"+email);
-//        String email = "r";
         String id = intent.getStringExtra("id");
-//        String vehicleType = intent.getStringExtra("owners_vehicle")
         String vehicleType = "Car";
 
         title.setText(intent.getStringExtra("name"));
@@ -78,6 +75,33 @@ public class QueueDetails extends AppCompatActivity {
         bikeCount.setText(intent.getStringExtra("bike"));
         tukCount.setText(intent.getStringExtra("tuk"));
         busCount.setText(intent.getStringExtra("bus"));
+
+        //check for fuel availability
+        Call<Station> call = ClientRetrofit.getInstance().getMyApi().getOneStations(id);
+
+        call.enqueue(new Callback<Station>() {
+            @Override
+            public void onResponse(Call<Station> call, Response<Station> response) {
+                if (response.code() == 200) {
+                    System.out.println(response.body().getStatus());
+                    if(response.body().getStatus().toLowerCase().contains("out of stock")){
+                        joinQueue.setVisibility(View.GONE);
+                        exitbefore.setVisibility(View.GONE);
+                        exitafter.setVisibility(View.GONE);
+                        return;
+                    }
+
+                } else if (response.code() == 404) {
+                    joinQueue.setEnabled(false);
+                    exitbefore.setEnabled(true);
+                    exitafter.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Station> call, Throwable t) {
+            }
+        });
 
         //method that calls when user needs to join the queue
         joinQueue.setOnClickListener(new View.OnClickListener() {
@@ -109,28 +133,6 @@ public class QueueDetails extends AppCompatActivity {
 
                     }
                 });
-//                Call<Object> call = ClientRetrofit.getInstance().getMyApi().updateJoinedStatus("r");
-//                call.enqueue(new Callback<Object>() {
-//                    @Override
-//                    public void onResponse(Call<Object> call, Response<Object> response) {
-//
-//                        if(response.code() != 200){
-//                            Toast.makeText(QueueDetails.this, "Ops, Error occurred!", Toast.LENGTH_LONG).show();
-//                            joinQueue.setEnabled(true);
-//                            return;
-//                        }
-//                        Toast.makeText(QueueDetails.this, "Success!", Toast.LENGTH_SHORT).show();
-//                        joinQueue.setEnabled(false);
-//                        exitbefore.setEnabled(true);
-//                        exitafter.setEnabled(true);
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Object> call, Throwable t) {
-//                        Log.e("Error", t.getMessage());
-//
-//                    }
-//                });
             }
         });
 
@@ -164,28 +166,6 @@ public class QueueDetails extends AppCompatActivity {
 
                     }
                 });
-//                Call<Object> call = ClientRetrofit.getInstance().getMyApi().updateJoinedStatusFalse("r");
-//                call.enqueue(new Callback<Object>() {
-//                    @Override
-//                    public void onResponse(Call<Object> call, Response<Object> response) {
-//
-//                        if (response.code() != 200) {
-//                            Toast.makeText(QueueDetails.this, "Ops, Error occurred!", Toast.LENGTH_LONG).show();
-//                            joinQueue.setEnabled(true);
-//                            return;
-//                        }
-//                        Toast.makeText(QueueDetails.this, "Success!", Toast.LENGTH_SHORT).show();
-//                        exitbefore.setEnabled(false);
-//                        exitafter.setEnabled(false);
-//                        joinQueue.setEnabled(true);
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Object> call, Throwable t) {
-//                        Log.e("Error", t.getMessage());
-//
-//                    }
-//                });
             }
         });
 

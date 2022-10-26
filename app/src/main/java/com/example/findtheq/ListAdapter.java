@@ -34,7 +34,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(list.get(position).getName());
+        holder.name.setText(list.get(position).getName().concat(" - "+list.get(position).getAddress()));
         String queueLength = String.valueOf(
                 (list.get(position).getQueue().getBike())+
                         (list.get(position).getQueue().getBus())+
@@ -44,6 +44,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         );
         holder.queue.setText(queueLength);
         holder.status.setText(list.get(position).getStatus());
+        holder.lastUpdateDate.setText(list.get(position).getArrivaltime());
     }
 
     @Override
@@ -53,16 +54,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name, queue, status;
+        TextView name, queue, status, lastUpdateDate;
 
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             name = itemView.findViewById(R.id.txtStationName);
             queue = itemView.findViewById(R.id.txtQueueLength);
             status = itemView.findViewById(R.id.txtStatus);
+            lastUpdateDate = itemView.findViewById(R.id.txtLastUpdateDate);
         }
     }
 }
