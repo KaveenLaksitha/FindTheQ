@@ -17,8 +17,8 @@ import retrofit2.http.Path;
 
 public interface UserClient {
 
-    String BASE_URL = "https://findtheqapi.herokuapp.com/api/";
-//    String BASE_URL = "http://10.0.2.2:4000/api/";
+//    String BASE_URL = "https://findtheqapi.herokuapp.com/api/";
+    String BASE_URL = "http://10.0.2.2:4000/api/";
 
 
     @POST("customers/register")

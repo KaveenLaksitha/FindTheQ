@@ -28,66 +28,30 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StationUserView extends AppCompatActivity {
-    TextView arrivalTimeDisplay, finishTimeDisplay , dieselDisplay ,petrolDisplay;
+    TextView arrivalTimeDisplay, finishTimeDisplay, dieselDisplay, petrolDisplay;
     Button btnUpdateStock, btnUpdateTime, btnTerminate;
     TimePickerDialog timePickerDialog;
-    RadioButton genderradioButton;
+    RadioButton radioButton;
     RadioGroup radioGroup;
 
-
+    private String stationID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_user_view);
 
-        try {
-            this.getSupportActionBar().hide();
-        }
-        // catch block to handle NullPointerException
-        catch (NullPointerException e) {
-        }
-
-       String stationId = getIntent().getStringExtra("id");
-
+        String stationId = getIntent().getStringExtra("id");
+        this.stationID = stationId;
         petrolDisplay = findViewById(R.id.petrolDisplay);
         dieselDisplay = findViewById(R.id.dieselDisplay);
         arrivalTimeDisplay = findViewById(R.id.arrivalTimeDisplay);
         finishTimeDisplay = findViewById(R.id.finishTimeDisplay);
-
-
-        System.out.println("dataaa>>>>>>>>>>>>>>>>>>> " + stationId);
-
-        Call<Station> call = ClientRetrofit.getInstance().getMyApi().getOneStations(stationId);
-
-        call.enqueue(new Callback<Station>() {
-            @Override
-            public void onResponse(Call<Station> call, Response<Station> response) {
-                if(response.code() == 200) {
-                        System.out.println("data enawad? " + response.body().getArrivaltime().toString());
-
-                        petrolDisplay.setText(response.body().getStock().getPetrol().toString());
-                        dieselDisplay.setText(response.body().getStock().getDiesel().toString());
-                        arrivalTimeDisplay.setText(response.body().getArrivaltime().toString());
-                        finishTimeDisplay.setText(response.body().getFinishtime().toString());
-
-                }else if(response.code() == 404){
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Station> call, Throwable t) {
-
-
-            }
-        });
-
-
         btnUpdateStock = findViewById(R.id.btnUpdateStock);
         btnUpdateTime = findViewById(R.id.btnUpdateTime);
         btnTerminate = findViewById(R.id.btnTerminate);
+
+        getStation(stationId);
 
         btnUpdateStock.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,89 +73,105 @@ public class StationUserView extends AppCompatActivity {
             }
         });
     }
-        //Function to display the UpdateStockDialog
-        void showUpdateStockDialog() {
-            final Dialog dialog = new Dialog(StationUserView.this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setCancelable(true);
-            dialog.setContentView(R.layout.update_stock_modal);
 
-            String stationId = getIntent().getStringExtra("id");
+    //method to get data from station id
+    private void getStation(String stationId){
+        Call<Station> call = ClientRetrofit.getInstance().getMyApi().getOneStations(stationId);
 
-            //Initializing the views of the dialog.
-            final EditText updateTxtPt92 = dialog.findViewById(R.id.etPetrol);
-            final EditText updateTxtD92 = dialog.findViewById(R.id.etDiesel);
+        call.enqueue(new Callback<Station>() {
+            @Override
+            public void onResponse(Call<Station> call, Response<Station> response) {
+                if (response.code() == 200) {
 
-            Call<Station> call = ClientRetrofit.getInstance().getMyApi().getOneStations(stationId);
+                    petrolDisplay.setText(response.body().getStock().getPetrol().toString());
+                    dieselDisplay.setText(response.body().getStock().getDiesel().toString());
+                    arrivalTimeDisplay.setText(response.body().getArrivaltime().toString());
+                    finishTimeDisplay.setText(response.body().getFinishtime().toString());
 
-            call.enqueue(new Callback<Station>() {
-                @Override
-                public void onResponse(Call<Station> call, Response<Station> response) {
-                    if(response.code() == 200) {
-                        System.out.println("data enawad? " + response.body().getArrivaltime().toString());
+                } else if (response.code() == 404) {
 
-                        updateTxtPt92.setText(response.body().getStock().getPetrol().toString());
-                        updateTxtD92.setText(response.body().getStock().getDiesel().toString());
+                }
 
-                    }else if(response.code() == 404){
+            }
 
+            @Override
+            public void onFailure(Call<Station> call, Throwable t) {
+
+
+            }
+        });
+    }
+
+    //Function to display the UpdateStockDialog
+    void showUpdateStockDialog() {
+        final Dialog dialog = new Dialog(StationUserView.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.update_stock_modal);
+
+        String stationId = getIntent().getStringExtra("id");
+
+        //Initializing the views of the dialog.
+        final EditText updateTxtPt92 = dialog.findViewById(R.id.etPetrol);
+        final EditText updateTxtD92 = dialog.findViewById(R.id.etDiesel);
+
+        Call<Station> call = ClientRetrofit.getInstance().getMyApi().getOneStations(stationId);
+        call.enqueue(new Callback<Station>() {
+            @Override
+            public void onResponse(Call<Station> call, Response<Station> response) {
+                if (response.code() == 200) {
+                    updateTxtPt92.setText(response.body().getStock().getPetrol());
+                    updateTxtD92.setText(response.body().getStock().getDiesel());
+                } else if (response.code() == 404) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Station> call, Throwable t) {
+
+            }
+        });
+
+        dialog.show();
+
+        Button btnUpdateStockModal = dialog.findViewById(R.id.btnUpdateStock);
+        Button btnCancelUpdateStock = dialog.findViewById(R.id.btnCancelStock);
+
+        //this will be triggered when user touch the update button
+        btnUpdateStockModal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+                StockModel stockModelDieselPetrol = new StockModel(updateTxtD92.getText().toString(), updateTxtPt92.getText().toString());
+                Call<Object> call2 = ClientRetrofit.getInstance().getMyApi().updateStockDetails(stationId, stockModelDieselPetrol);
+                call2.enqueue(new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        if (response.code() == 200) {
+                            Toast.makeText(getApplicationContext(), "successfully updated!", Toast.LENGTH_LONG).show();
+                            getStation(stationId);
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Oops, Error occurred!", Toast.LENGTH_LONG).show();
+                        }
                     }
 
-                }
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
 
-                @Override
-                public void onFailure(Call<Station> call, Throwable t) {
+                    }
+                });
+            }
+        });
 
-
-                }
-            });
-
-            Button btnUpdateStockModal = dialog.findViewById(R.id.btnUpdateStock);
-            Button btnCancelUpdateStock = dialog.findViewById(R.id.btnCancelStock);
-
-            dialog.show();
-            System.out.println(  " Diesal "+ updateTxtD92.getText().toString());
-
-            StockModel stockModelDieselPetrol = new StockModel(updateTxtD92.getText().toString() , updateTxtPt92.getText().toString());
-
-
-            Call<Object> call2 = ClientRetrofit.getInstance().getMyApi().updateStockDetails(stationId , stockModelDieselPetrol);
-
-            btnUpdateStockModal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    System.out.println("update data" + stockModelDieselPetrol.getDiesel().toString());
-
-
-                    call2.enqueue(new Callback<Object>() {
-                        @Override
-                        public void onResponse(Call<Object> call, Response<Object> response) {
-                            if(response.code() == 200) {
-                                Toast.makeText(getApplicationContext(), "successfully" , Toast.LENGTH_LONG).show();
-
-                            }else if(response.code() == 404){
-
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<Object> call, Throwable t) {
-
-
-                        }
-                    });
-                    dialog.dismiss();
-                }
-            });
-
-            btnCancelUpdateStock.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-        }
+        btnCancelUpdateStock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
 
     //Function to display the UpdateTimeDialog.
     void showUpdateTimeDialog() {
@@ -213,13 +193,13 @@ public class StationUserView extends AppCompatActivity {
         call.enqueue(new Callback<Station>() {
             @Override
             public void onResponse(Call<Station> call, Response<Station> response) {
-                if(response.code() == 200) {
+                if (response.code() == 200) {
                     System.out.println("data enawad? " + response.body().getArrivaltime().toString());
 
                     updateTimeArrival.setText(response.body().getArrivaltime().toString());
                     updateTimeFinish.setText(response.body().getFinishtime().toString());
 
-                }else if(response.code() == 404){
+                } else if (response.code() == 404) {
 
                 }
 
@@ -232,7 +212,7 @@ public class StationUserView extends AppCompatActivity {
             }
         });
 
-       // Station updateArrivalFinishTime = new Station(stationId,arrivalTimeDisplay,finishTimeDisplay);
+        // Station updateArrivalFinishTime = new Station(stationId,arrivalTimeDisplay,finishTimeDisplay);
 
         updateTimeArrival.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,7 +275,7 @@ public class StationUserView extends AppCompatActivity {
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.update_status_modal);
 
-        radioGroup=dialog.findViewById(R.id.radioGroup);
+        radioGroup = dialog.findViewById(R.id.radioGroup);
         Button btnUpdateStatus = dialog.findViewById(R.id.btnUpdateStatus);
         Button btnCancelStatus = dialog.findViewById(R.id.btnCancelStatus);
 
@@ -305,20 +285,19 @@ public class StationUserView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int selectedId = radioGroup.getCheckedRadioButtonId();
-                genderradioButton = dialog.findViewById(selectedId);
-                if(selectedId==-1){
-                    Toast.makeText(StationUserView.this,"Nothing selected", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    String txt = (String) genderradioButton.getText();
+                radioButton = dialog.findViewById(selectedId);
+                if (selectedId == -1) {
+                    Toast.makeText(StationUserView.this, "Nothing selected", Toast.LENGTH_SHORT).show();
+                } else {
+                    String txt = (String) radioButton.getText();
                     Boolean status;
-                    if(txt.toLowerCase().contains("active")){
+                    if (txt.toLowerCase().contains("active")) {
                         status = true;
-                    }else{
+                    } else {
                         status = false;
                     }
                     System.out.println("status >>>>" + status);
-                    Toast.makeText(StationUserView.this,genderradioButton.getText(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StationUserView.this, radioButton.getText(), Toast.LENGTH_SHORT).show();
                 }
 //                dialog.dismiss();
             }

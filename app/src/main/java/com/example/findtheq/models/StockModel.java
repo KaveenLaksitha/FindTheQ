@@ -12,20 +12,20 @@ public class StockModel {
     private String Petrol;
 
     public StockModel(String diesel, String petrol) {
-        Diesel = diesel;
-        Petrol = petrol;
+        this.Diesel = diesel;
+        this.Petrol = petrol;
     }
 
     public String getDiesel() {
         return Diesel;
     }
 
-    public String getPetrol() {
-        return Petrol;
-    }
-
     public void setDiesel(String diesel) {
         Diesel = diesel;
+    }
+
+    public String getPetrol() {
+        return Petrol;
     }
 
     public void setPetrol(String petrol) {
