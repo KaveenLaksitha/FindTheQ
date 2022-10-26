@@ -48,8 +48,7 @@ public class StationListView extends AppCompatActivity {
 
         Intent i = getIntent();
         String email = i.getStringExtra("email");
-
-//        loadStationList();
+        String type = i.getStringExtra("type");
 
         //set touch listener to one item
         recyclerView.addOnItemTouchListener(
@@ -59,6 +58,7 @@ public class StationListView extends AppCompatActivity {
                         Intent intent = new Intent();
                         intent.setClass(StationListView.this, QueueDetails.class);
                         intent.putExtra("email",email);
+                        intent.putExtra("type",type);
                         intent.putExtra("id",stationList.get(position).getId());
                         intent.putExtra("name",stationList.get(position).getName());
                         intent.putExtra("diesel",stationList.get(position).getStock().getDiesel());

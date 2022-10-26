@@ -91,7 +91,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.code() == 200) {
                     Toast.makeText(LoginActivity.this, "login successfully" , Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(getApplicationContext(), StationListView.class).putExtra("email",loginUser.getEmail().toString());
+                    Intent i = new Intent(getApplicationContext(), StationListView.class);
+                    i.putExtra("email",loginUser.getEmail());
+                    i.putExtra("type", response.body().getVehicletype());
                     startActivity(i);
                 }else if(response.code() == 404){
                     Toast.makeText(LoginActivity.this, "login unsuccessfully" , Toast.LENGTH_LONG).show();

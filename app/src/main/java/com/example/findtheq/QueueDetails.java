@@ -45,11 +45,6 @@ public class QueueDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        //check whether user is already joined to the queue or not
-        //and enable/disable relevant buttons
-        checkIsJoined();
-        setExitButtonStatusonLoad();
-
         title = findViewById(R.id.queueDetails);
         dieselStock = findViewById(R.id.dieselStock);
         petrolStock = findViewById(R.id.petrolStock);
@@ -64,12 +59,17 @@ public class QueueDetails extends AppCompatActivity {
 
         String email = intent.getStringExtra("email");
         String id = intent.getStringExtra("id");
-        String vehicleType = "Car";
+        String vehicleType = intent.getStringExtra("type");
+
+        //check whether user is already joined to the queue or not
+        //and enable/disable relevant buttons
+        checkIsJoined(email);
+        setExitButtonStatusonLoad(email);
 
         title.setText(intent.getStringExtra("name"));
         allCount.setText(String.valueOf(queueLength));
-        dieselStock.setText(intent.getStringExtra("diesel"));
-        petrolStock.setText(intent.getStringExtra("petrol"));
+        dieselStock.setText(intent.getStringExtra("diesel").concat(" L"));
+        petrolStock.setText(intent.getStringExtra("petrol").concat(" L"));
         carCount.setText(intent.getStringExtra("car"));
         vanCount.setText(intent.getStringExtra("van"));
         bikeCount.setText(intent.getStringExtra("bike"));
@@ -83,7 +83,6 @@ public class QueueDetails extends AppCompatActivity {
             @Override
             public void onResponse(Call<Station> call, Response<Station> response) {
                 if (response.code() == 200) {
-                    System.out.println(response.body().getStatus());
                     if(response.body().getStatus().toLowerCase().contains("out of stock")){
                         joinQueue.setVisibility(View.GONE);
                         exitbefore.setVisibility(View.GONE);
@@ -123,7 +122,9 @@ public class QueueDetails extends AppCompatActivity {
                         exitbefore.setEnabled(true);
                         exitafter.setEnabled(true);
                         Intent i = new Intent();
-                        i.setClass(getApplicationContext(),StationListView.class).putExtra("email",email);
+                        i.setClass(getApplicationContext(),StationListView.class);
+                        i.putExtra("email",email);
+                        i.putExtra("type",vehicleType);
                         startActivity(i);
                     }
 
@@ -156,7 +157,9 @@ public class QueueDetails extends AppCompatActivity {
                         exitafter.setEnabled(false);
                         joinQueue.setEnabled(true);
                         Intent i = new Intent();
-                        i.setClass(QueueDetails.this, StationListView.class).putExtra("email",email);
+                        i.setClass(QueueDetails.this, StationListView.class);
+                        i.putExtra("email",email);
+                        i.putExtra("type",vehicleType);
                         startActivity(i);
                     }
 
@@ -171,8 +174,8 @@ public class QueueDetails extends AppCompatActivity {
 
     }
 
-    private void checkIsJoined() {
-        Call<User> call = ClientRetrofit.getInstance().getMyApi().getUserByEmail("r");
+    private void checkIsJoined(String email) {
+        Call<User> call = ClientRetrofit.getInstance().getMyApi().getUserByEmail(email);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -196,8 +199,8 @@ public class QueueDetails extends AppCompatActivity {
         });
     }
 
-    private void setExitButtonStatusonLoad() {
-        Call<User> call = ClientRetrofit.getInstance().getMyApi().getUserByEmail("r");
+    private void setExitButtonStatusonLoad(String email) {
+        Call<User> call = ClientRetrofit.getInstance().getMyApi().getUserByEmail(email);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
