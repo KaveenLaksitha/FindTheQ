@@ -7,6 +7,19 @@
     tools:context=".StationListView">
 
 
+    <ImageButton
+        android:id="@+id/btnLogout"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@drawable/logout"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:src="@drawable/logout" />
+
     <TextView
         android:id="@+id/fuelStationListLabel"
         android:layout_width="match_parent"
@@ -28,7 +41,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/listbg">
 
         <androidx.appcompat.widget.SearchView
@@ -45,7 +58,7 @@
             android:inputType="textPersonName"
             android:padding="8dp"
             android:textSize="14sp"
-            app:queryHint="Search here.."/>
+            app:queryHint="Search here.." />
 
     </LinearLayout>
 

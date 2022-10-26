@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.example.findtheq.models.ClientRetrofit;
@@ -28,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class StationListView extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    ImageButton btnLogout;
     List<Station> stationList;
     private ListAdapter itemAdapter;
     private SearchView stationSearch;
@@ -37,6 +39,15 @@ public class StationListView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_list_view);
+
+        btnLogout = findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("clicked");
+            }
+        });
 
         recyclerView = findViewById(R.id.recycler_station_list_view);
         stationList = new ArrayList<>();
