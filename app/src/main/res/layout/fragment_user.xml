@@ -19,122 +19,123 @@
         app:cardElevation="10dp">
 
         <ScrollView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="580dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:paddingHorizontal="15dp"
+            >
 
             <EditText
                 android:id="@+id/cusname"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="24dp"
+                android:drawableStart="@drawable/icons_person2"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="Customer Name" />
 
             <EditText
                 android:id="@+id/cusemail"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="24dp"
+                android:drawableStart="@drawable/icons8_circled_envelope_48"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="Email" />
 
             <EditText
                 android:id="@+id/cusnic"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/icons8_nic"
+                android:drawablePadding="10dp"
                 android:layout_below="@+id/cusemail"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="21dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="NIC" />
 
             <EditText
                 android:id="@+id/cuspno"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cusnic"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="22dp"
+                android:drawableStart="@drawable/contact"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="Phone Number" />
 
             <EditText
                 android:id="@+id/cusvehicletype"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cuspno"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="22dp"
+                android:drawableStart="@drawable/icons8_courier"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="Vehicle Type" />
 
 
             <EditText
                 android:id="@+id/cusvehicleid"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cusvehicletype"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="20dp"
+                android:drawableStart="@drawable/icons8_licence_plate"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="Vehicle ID" />
 
             <EditText
                 android:id="@+id/cuspassword"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cusvehicleid"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="23dp"
+                android:drawableStart="@drawable/icons8_password"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="Password"
                 android:inputType="textPassword" />
 
             <Button
                 android:id="@+id/btnRegister"
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginLeft="45dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="164dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Register" />
 
         </LinearLayout>
