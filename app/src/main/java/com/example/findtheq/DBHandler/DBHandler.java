@@ -1,9 +1,12 @@
-package com.example.findtheq.models.DBHandler;
+package com.example.findtheq.DBHandler;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -43,6 +46,24 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public ArrayList<DbModel> readUser() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+
+        ArrayList<DbModel> data = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                data.add(new DbModel(cursor.getString(1),
+                        cursor.getString(1),
+                        cursor.getString(2)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return data;
+    }
+
     public void updateUserDetails(String email, String vehicleType, String stationID) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -54,6 +75,26 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.update(TABLE_NAME, values, "email=?", new String[]{email});
         db.close();
+    }
+
+    public Cursor  readeStationID(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE email LIKE " + "'" + email + "'";
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query,null);
+        }if (cursor.getCount() == 0){
+            System.out.println("Error while reading joined stationID");
+        }
+        return cursor;
+
+    }
+
+    public void dropTable(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
     }
 
     @Override

@@ -12,9 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.findtheq.models.ClientRetrofit;
-import com.example.findtheq.models.UpdateStatusModel;
+import com.example.findtheq.DBHandler.DBHandler;
+import com.example.findtheq.DBHandler.DbModel;
 import com.example.findtheq.models.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -26,11 +28,25 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView register , stationOwnerLogin;
     Button signin;
+    private DBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //check if user is already logged in
+        dbHandler = new DBHandler(LoginActivity.this);
+        ArrayList<DbModel> data =  dbHandler.readUser();
+
+        if(!data.isEmpty()){
+            Intent i = new Intent(getApplicationContext(), StationListView.class);
+            i.putExtra("email",data.get(0).getEmail());
+            i.putExtra("type", data.get(0).getVehicleType());
+            startActivity(i);
+            return;
+        }
+
 
         signin = findViewById(R.id.btnLogin);
         EditText email = findViewById(R.id.useremail);
@@ -94,6 +110,11 @@ public class LoginActivity extends AppCompatActivity {
                     Intent i = new Intent(getApplicationContext(), StationListView.class);
                     i.putExtra("email",loginUser.getEmail());
                     i.putExtra("type", response.body().getVehicletype());
+
+                    //store user's data in the DB
+                    dbHandler = new DBHandler(LoginActivity.this);
+                    dbHandler.addNewUser(loginUser.getEmail(), response.body().getVehicletype());
+
                     startActivity(i);
                 }else if(response.code() == 404){
                     Toast.makeText(LoginActivity.this, "login unsuccessfully" , Toast.LENGTH_LONG).show();
