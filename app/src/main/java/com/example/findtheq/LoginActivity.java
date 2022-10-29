@@ -95,6 +95,20 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    protected void onResume() {
+        super.onResume();
+        dbHandler = new DBHandler(LoginActivity.this);
+        ArrayList<DbModel> data =  dbHandler.readUser();
+
+        if(!data.isEmpty()){
+            Intent i = new Intent(getApplicationContext(), StationListView.class);
+            i.putExtra("email",data.get(0).getEmail());
+            i.putExtra("type", data.get(0).getVehicleType());
+            startActivity(i);
+            return;
+        }
+    }
+
     private void UserLogin(User loginUser) {
         HashMap<String, String> map = new HashMap<>();
         map.put("email" , loginUser.getEmail().toString());

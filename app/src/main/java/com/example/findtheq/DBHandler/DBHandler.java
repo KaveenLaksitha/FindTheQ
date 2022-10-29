@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
@@ -56,8 +57,8 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 data.add(new DbModel(cursor.getString(1),
-                        cursor.getString(1),
-                        cursor.getString(2)));
+                        cursor.getString(2),
+                        cursor.getString(3)));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -77,24 +78,10 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Cursor  readeStationID(String email){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE email LIKE " + "'" + email + "'";
-
-        Cursor cursor = null;
-        if(db != null){
-            cursor = db.rawQuery(query,null);
-        }if (cursor.getCount() == 0){
-            System.out.println("Error while reading joined stationID");
-        }
-        return cursor;
-
-    }
-
-    public void dropTable(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+    public void deleteTheTable(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+ TABLE_NAME);
+        db.close();
     }
 
     @Override

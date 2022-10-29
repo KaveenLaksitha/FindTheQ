@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.findtheq.DBHandler.DBHandler;
+import com.example.findtheq.DBHandler.DbModel;
 import com.example.findtheq.models.ClientRetrofit;
 import com.example.findtheq.models.Station;
 import com.example.findtheq.models.UpdateStatusModel;
@@ -20,6 +22,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,7 +34,7 @@ public class QueueDetails extends AppCompatActivity {
 
     TextView title, dieselStock, petrolStock, allCount, carCount, vanCount, busCount, bikeCount, tukCount;
     Button joinQueue, exitbefore, exitafter;
-    String idStation = "001";
+    private DBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +66,8 @@ public class QueueDetails extends AppCompatActivity {
 
         //check whether user is already joined to the queue or not
         //and enable/disable relevant buttons
-        checkIsJoined(email);
-        setExitButtonStatusonLoad(email);
+        checkIsJoined(email, id);
+        setExitButtonStatusonLoad(email, id);
 
         title.setText(intent.getStringExtra("name"));
         allCount.setText(String.valueOf(queueLength));
@@ -117,6 +120,9 @@ public class QueueDetails extends AppCompatActivity {
                             joinQueue.setEnabled(true);
                             return;
                         }
+                        dbHandler = new DBHandler(QueueDetails.this);
+                        dbHandler.updateUserDetails(email,vehicleType,id);
+
                         Toast.makeText(QueueDetails.this, "Success!", Toast.LENGTH_SHORT).show();
                         joinQueue.setEnabled(false);
                         exitbefore.setEnabled(true);
@@ -172,9 +178,43 @@ public class QueueDetails extends AppCompatActivity {
             }
         });
 
+        exitafter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UpdateStatusModel body = new UpdateStatusModel(email,false,id,vehicleType);
+                Call<Object> call = ClientRetrofit.getInstance().getMyApi().updateStatusAndCount(body);
+                call.enqueue(new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+
+                        if (response.code() != 200) {
+                            Toast.makeText(QueueDetails.this, "Ops, Error occurred!", Toast.LENGTH_LONG).show();
+                            joinQueue.setEnabled(true);
+                            return;
+                        }
+                        Toast.makeText(QueueDetails.this, "Success!", Toast.LENGTH_SHORT).show();
+                        exitbefore.setEnabled(false);
+                        exitafter.setEnabled(false);
+                        joinQueue.setEnabled(true);
+                        Intent i = new Intent();
+                        i.setClass(QueueDetails.this, StationListView.class);
+                        i.putExtra("email",email);
+                        i.putExtra("type",vehicleType);
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+                        Log.e("Error", t.getMessage());
+
+                    }
+                });
+            }
+        });
+
     }
 
-    private void checkIsJoined(String email) {
+    private void checkIsJoined(String email, String id) {
         Call<User> call = ClientRetrofit.getInstance().getMyApi().getUserByEmail(email);
         call.enqueue(new Callback<User>() {
             @Override
@@ -185,8 +225,16 @@ public class QueueDetails extends AppCompatActivity {
                     joinQueue.setEnabled(true);
                     return;
                 }
+
+                dbHandler = new DBHandler(QueueDetails.this);
+                ArrayList<DbModel> data =  dbHandler.readUser();
+
+                Boolean isSameStation = data.get(0).getJoinedStationID().contains(id);
+                if(response.body().getIsJoined().contains("true") && !isSameStation){
+                    Toast.makeText(QueueDetails.this, "You have already joined to another queue!", Toast.LENGTH_SHORT).show();
+                }
+
                 if (response.body().getIsJoined().contains("true")) {
-                    Toast.makeText(QueueDetails.this, "You have already joined to another queue!", Toast.LENGTH_LONG).show();
                     joinQueue.setEnabled(false);
                 }
             }
@@ -199,7 +247,7 @@ public class QueueDetails extends AppCompatActivity {
         });
     }
 
-    private void setExitButtonStatusonLoad(String email) {
+    private void setExitButtonStatusonLoad(String email, String id) {
         Call<User> call = ClientRetrofit.getInstance().getMyApi().getUserByEmail(email);
         call.enqueue(new Callback<User>() {
             @Override
@@ -211,7 +259,16 @@ public class QueueDetails extends AppCompatActivity {
                     exitafter.setEnabled(true);
                     return;
                 }
-                if (response.body().getIsJoined().contains("false")) {
+
+                dbHandler = new DBHandler(QueueDetails.this);
+                ArrayList<DbModel> data =  dbHandler.readUser();
+
+                Boolean isSameStation = data.get(0).getJoinedStationID().contains(id);
+
+                if (response.body().getIsJoined().contains("true") && isSameStation) {
+                    exitbefore.setEnabled(true);
+                    exitafter.setEnabled(true);
+                }else{
                     exitbefore.setEnabled(false);
                     exitafter.setEnabled(false);
                 }

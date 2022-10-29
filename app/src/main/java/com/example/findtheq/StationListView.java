@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.example.findtheq.DBHandler.DBHandler;
 import com.example.findtheq.models.ClientRetrofit;
 import com.example.findtheq.models.Station;
 import com.example.findtheq.models.UpdateStatusModel;
@@ -35,6 +38,11 @@ public class StationListView extends AppCompatActivity {
     private SearchView stationSearch;
     private ProgressBar progressBar;
 
+    private DBHandler dbHandler;
+
+    public StationListView() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +50,20 @@ public class StationListView extends AppCompatActivity {
 
         btnLogout = findViewById(R.id.btnLogout);
 
+
+        Intent i = getIntent();
+        String email = i.getStringExtra("email");
+        String type = i.getStringExtra("type");
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("clicked");
+                Intent i = new Intent(StationListView.this, LoginActivity.class);
+                Toast.makeText(StationListView.this, "Signing out..." , Toast.LENGTH_LONG).show();
+                dbHandler = new DBHandler(StationListView.this);
+                dbHandler.deleteTheTable(email);
+                startActivity(i);
+
             }
         });
 
@@ -56,10 +74,6 @@ public class StationListView extends AppCompatActivity {
 
         progressBar = findViewById(R.id.pBar);
         progressBar.setVisibility(View.VISIBLE);
-
-        Intent i = getIntent();
-        String email = i.getStringExtra("email");
-        String type = i.getStringExtra("type");
 
         //set touch listener to one item
         recyclerView.addOnItemTouchListener(
